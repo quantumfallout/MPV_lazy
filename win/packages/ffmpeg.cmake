@@ -74,6 +74,8 @@ ExternalProject_Add(ffmpeg
         --enable-cuda
         --enable-cuvid
         --enable-nvdec
+        --disable-ffplay
+        --disable-ffprobe
         --disable-nvenc
         --enable-amf
         --disable-doc
