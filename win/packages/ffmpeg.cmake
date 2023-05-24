@@ -17,6 +17,8 @@ ExternalProject_Add(ffmpeg
         libwebp
         libzimg
         libmysofa
+        fontconfig
+        harfbuzz
         libxml2
         libvpl
         libjxl
@@ -52,6 +54,8 @@ ExternalProject_Add(ffmpeg
         --enable-libbluray
         --enable-libfreetype
         --enable-libfribidi
+        --enable-libfontconfig
+        --enable-libharfbuzz
         --enable-libmodplug
         --enable-libsoxr
         --enable-libbs2b
