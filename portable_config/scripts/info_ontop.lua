@@ -1,3 +1,6 @@
+
+mp.set_property_native("user-data/osc/margins", { l = 0, r = 0, t = 0, b = 0.04 })
+
 local opts = {
     enabled = true,
     size = 36,

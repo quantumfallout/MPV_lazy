@@ -1,3 +1,4 @@
+
 local opts = {
     show_distance = true,
     show_coordinates = true,

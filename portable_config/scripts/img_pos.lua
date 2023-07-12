@@ -1,3 +1,4 @@
+
 local opts = {
     drag_to_pan_margin = 50,
     drag_to_pan_move_if_full_view = false,
