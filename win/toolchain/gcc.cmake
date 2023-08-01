@@ -1,15 +1,9 @@
-if(${TARGET_CPU} MATCHES "x86_64")
-    set(arch "${GCC_ARCH}")
-else()
-    set(arch "i686")
-endif()
-
 ExternalProject_Add(gcc
     DEPENDS
         mingw-w64-headers
-    URL https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/13-20230610/gcc-13-20230610.tar.xz
+    URL https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/13-20230916/gcc-13-20230916.tar.xz
     # https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/12-20221217/sha512.sum
-    URL_HASH SHA512=a2e00bb5d816d37ea38de7662bb26616603b14cf08bc3452f39300fc8efed3fad372f7603deb36e0e6dd06f082c815997ba22c2b7438e379e782682e6333578d
+    URL_HASH SHA512=a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1
     DOWNLOAD_DIR ${SOURCE_LOCATION}
     CONFIGURE_COMMAND <SOURCE_DIR>/configure
         --target=${TARGET_ARCH}
@@ -21,7 +15,7 @@ ExternalProject_Add(gcc
         --disable-nls
         --disable-shared
         --disable-win32-registry
-        --with-arch=${arch}
+        --with-arch=${GCC_ARCH}
         --with-tune=generic
         --enable-threads=posix
         --without-included-gettext

@@ -1,1 +1,0 @@
-https://github.com/shinchiro/mpv-winbuild-cmake/commit/56e9aa41995eaa0b97fd486a7a06a139b65b47e3

@@ -1,4 +1,5 @@
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS download)
+include(${PROJECT_SOURCE_DIR}/cmake/packages_check.cmake)
 list(APPEND ep
     gmp
     xz
@@ -38,6 +39,7 @@ list(APPEND ep
     avisynth-headers
     nvcodec-headers
     libmysofa
+    xxhash
     dav1d
     libwebp
     vapoursynth
@@ -58,6 +60,7 @@ list(APPEND ep
     vulkan
     shaderc
     glad
+    fast_float
     libdovi
     libplacebo
     libva
@@ -97,6 +100,7 @@ list(REMOVE_ITEM repo ${removed})
 list(REMOVE_ITEM ep ${removed})
 list(TRANSFORM repo APPEND "-force-update" OUTPUT_VARIABLE update)
 list(TRANSFORM ep APPEND "-download" OUTPUT_VARIABLE download)
+list(TRANSFORM ep APPEND "-fullclean" OUTPUT_VARIABLE fullclean)
 
 add_custom_target(update
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target ${update}
@@ -105,6 +109,11 @@ add_custom_target(update
 
 add_custom_target(download
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target ${download}
+)
+
+add_custom_target(package-fullclean
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target ${fullclean}
+    COMMENT "Remove all stamp files, reset git HEAD"
 )
 
 add_custom_target(cargo-clean

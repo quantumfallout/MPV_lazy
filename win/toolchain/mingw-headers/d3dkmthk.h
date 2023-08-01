@@ -391,6 +391,7 @@ typedef struct _D3DKMT_QUERYSTATSTICS_RENAMING
     ULONG MaxRenamingListLength;
     ULONG NbFailuresDueToRenamingLimit;
     ULONG NbFailuresDueToCreateAllocation;
+    ULONG NbFailuresDueToOpenAllocation;
     ULONG NbFailuresDueToLowResource;
     ULONG NbFailuresDueToNonRetiredLimit;
 } D3DKMT_QUERYSTATSTICS_RENAMING;
