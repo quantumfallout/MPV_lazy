@@ -1,17 +1,16 @@
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS download)
 include(${PROJECT_SOURCE_DIR}/cmake/packages_check.cmake)
 list(APPEND ep
-    gmp
     xz
     lzo
     uchardet
     rubberband
     zlib
+    zstd
     bzip2
     libjpeg
     lcms2
     libmodplug
-    game-music-emu
     libpng
     libdvdcss
     libdvdread
@@ -20,8 +19,9 @@ list(APPEND ep
     luajit
     fribidi
     expat
-    nettle
-    libarchive
+    mbedtls
+    libxml2
+    brotli
     freetype2
     libudfread
     libbluray
@@ -32,8 +32,6 @@ list(APPEND ep
     fontconfig
     libunibreak
     libass
-    mbedtls
-    libxml2
     libvpl
     amf-headers
     avisynth-headers
@@ -44,9 +42,10 @@ list(APPEND ep
     libwebp
     vapoursynth
     libbs2b
+    openssl
     libssh
     libsrt
-    brotli
+    libarchive
     highway
     libjxl
     uavs3d
@@ -78,6 +77,7 @@ list(APPEND ep
     libuv
     libsodium
     megasdk
+    mesa
 )
 foreach(package IN LISTS ep)
     if(NOT ${SINGLE_SOURCE_LOCATION} STREQUAL "")
@@ -95,7 +95,7 @@ list(LENGTH ep ep_length)
 message(STATUS "Parsing ${ep_length} packages")
 
 # Exclude packages which dont depend on mpv when update
-list(APPEND removed "termcap" "readline" "cryptopp" "sqlite" "libuv" "libsodium" "megasdk" "libsixel" "curl")
+list(APPEND removed "termcap" "readline" "cryptopp" "sqlite" "libuv" "libsodium" "megasdk" "libsixel" "curl" "mbedtls" "mesa")
 list(REMOVE_ITEM repo ${removed})
 list(REMOVE_ITEM ep ${removed})
 list(TRANSFORM repo APPEND "-force-update" OUTPUT_VARIABLE update)

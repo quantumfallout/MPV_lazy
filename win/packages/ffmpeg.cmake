@@ -4,8 +4,8 @@ ExternalProject_Add(ffmpeg
         avisynth-headers
         nvcodec-headers
         bzip2
-        gmp
-        mbedtls
+        lcms2
+        openssl
         libssh
         libsrt
         libass
@@ -31,11 +31,12 @@ ExternalProject_Add(ffmpeg
         uavs3d
         davs2
         rubberband
+        libva
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
+    CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/configure
         --cross-prefix=${TARGET_ARCH}-
         --prefix=${MINGW_INSTALL_PREFIX}
         --arch=${TARGET_CPU}
@@ -50,7 +51,6 @@ ExternalProject_Add(ffmpeg
         --enable-postproc
         --enable-avisynth
         --enable-vapoursynth
-        --enable-gmp
         --enable-libass
         --enable-libbluray
         --enable-libfreetype
@@ -58,6 +58,7 @@ ExternalProject_Add(ffmpeg
         --enable-libfontconfig
         --enable-libharfbuzz
         --enable-libmodplug
+        --enable-lcms2
         --enable-libsoxr
         --enable-libbs2b
         --enable-librubberband
@@ -66,7 +67,7 @@ ExternalProject_Add(ffmpeg
         --enable-libdavs2
         --enable-libuavs3d
         --enable-libzimg
-        --enable-mbedtls
+        --enable-openssl
         --enable-libxml2
         --enable-libmysofa
         --enable-libssh
@@ -82,13 +83,14 @@ ExternalProject_Add(ffmpeg
         --enable-nvdec
         --enable-nvenc
         --enable-amf
+        --enable-vaapi
         --disable-doc
         --disable-ffplay
         --disable-ffprobe
-        --disable-vaapi
         --disable-vdpau
         --disable-videotoolbox
         --disable-decoder=libaom_av1
+        ${ffmpeg_mlp}
         --extra-cflags='-Wno-error=int-conversion'
         "--extra-libs='${ffmpeg_extra_libs}'" # -lstdc++ / -lc++ needs by libjxl and shaderc
     BUILD_COMMAND ${MAKE}
