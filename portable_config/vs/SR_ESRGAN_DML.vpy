@@ -1,4 +1,4 @@
-### https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
+### 文档_ https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ### Real-ESRGAN 放大或降噪，性能要求极高，仅支持DX12的显卡使用
 
 import vapoursynth as vs

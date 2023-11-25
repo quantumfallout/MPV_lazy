@@ -11,9 +11,9 @@ mpv的一种衍生用法，最早只是我个人用来预览waifu2x的输出效�
 
 _该仓库没有细致的注释，默认你已基本熟悉mpv的使用。也不提供完整的成品包，只是一个作为有此类需求的样本参考。_
 
->**Note**  
+>[!TIP]
 > mpv-lazy 懒人包的用户，可以快速将其转换为 mpv-MIV ：  
->使用对应的版本（查看commit的信息），移除原标准包（+自选增强包）的 `portable_config` 目录中的除 `shaders` 文件夹外的所有文件，再将此分支的 `portable_config` 覆盖，即可完成部署。
+>使用对应的版本（查看commit的信息），移除原包 `portable_config` 目录中的除 `shaders` 文件夹外的所有文件，再将此分支的 `portable_config` 覆盖，即可完成部署。
 
 ![](Temp/MIV.jpg)
 

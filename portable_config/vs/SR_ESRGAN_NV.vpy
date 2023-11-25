@@ -1,4 +1,4 @@
-### https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
+### 文档_ https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ### Real-ESRGAN 放大或降噪，性能要求极高，N卡专用
 
 import vapoursynth as vs
