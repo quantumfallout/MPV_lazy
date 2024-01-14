@@ -4,6 +4,7 @@ ExternalProject_Add(libplacebo
     DEPENDS
         vulkan
         shaderc
+        spirv-cross
         lcms2
         glad
         fast_float
@@ -19,11 +20,12 @@ ExternalProject_Add(libplacebo
     COMMAND bash -c "rm -rf <SOURCE_DIR>/3rdparty/fast_float"
     COMMAND bash -c "ln -s ${src_glad} <SOURCE_DIR>/3rdparty/glad"
     COMMAND bash -c "ln -s ${src_fast_float} <SOURCE_DIR>/3rdparty/fast_float"
-    COMMAND ${EXEC} CONF=1 meson <BINARY_DIR> <SOURCE_DIR>
+    COMMAND ${EXEC} CONF=1 meson setup <BINARY_DIR> <SOURCE_DIR>
         --prefix=${MINGW_INSTALL_PREFIX}
         --libdir=${MINGW_INSTALL_PREFIX}/lib
         --cross-file=${MESON_CROSS}
         --default-library=static
+        -Dd3d11=enabled
         -Ddebug=true
         -Db_ndebug=true
         -Doptimization=3
