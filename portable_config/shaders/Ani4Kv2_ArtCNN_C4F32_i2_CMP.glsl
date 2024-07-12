@@ -31,6 +31,7 @@
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -162,6 +163,7 @@ void hook() {
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -804,6 +806,7 @@ void hook() {
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -1446,6 +1449,7 @@ void hook() {
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -2088,6 +2092,7 @@ void hook() {
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -2730,6 +2735,7 @@ void hook() {
 //!WIDTH LUMA.w 8.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -3373,6 +3379,7 @@ void hook() {
 //!WIDTH LUMA.w 1.0 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
@@ -3489,6 +3496,7 @@ void hook() {
 //!WIDTH LUMA.w 2.0 *
 //!HEIGHT LUMA.h 2.0 *
 //!COMPONENTS 4
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
