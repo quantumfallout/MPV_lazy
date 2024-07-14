@@ -1,6 +1,6 @@
 --[[
 SOURCE_ https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autoload.lua
-COMMIT_ b1491bed28ffad2adb23d704241ca4cbfcae8df3
+COMMIT_ a1caa001870985f36ae3c0082181e4e708ebdd73
 SOURCE_ https://github.com/rossy/mpv-open-file-dialog/blob/master/open-file-dialog.lua
 COMMIT_ 04fe818fc703d8c5dcc3a6aabe1caeed8286bdbb
 文档_ https://github.com/hooke007/MPV_lazy/discussions/106
@@ -33,7 +33,8 @@ opt = {
 	image_ext = "default",
 	skip_hidden = true,
 	max_entries = 150,
-	directory_mode = "ignore"
+	directory_mode = "ignore",
+	ignore_pattern = "$^",
 }
 options.read_options(opt)
 
@@ -244,9 +245,14 @@ function scan_dir(path, current_file, dir_mode, separator, dir_depth, total_file
 	table.filter(files, function (v)
 		-- The current file could be a hidden file, ignoring it doesn't load other
 		-- files from the current directory.
-		if (opt.skip_hidden and not (prefix .. v == current_file) and string.match(v, "^%.")) then
+		local current = prefix .. v == current_file
+		if (opt.skip_hidden and not current and string.match(v, "^%.")) then
 			return false
 		end
+		if (not current and string.match(v, opt.ignore_pattern)) then
+			return false
+		end
+
 		local ext = get_extension(v)
 		if ext == nil then
 			return false
