@@ -30,7 +30,7 @@
 //!DESC [CfL_Prediction_Lite] (Downscaling Luma)
 
 vec4 hook() {
-    return LUMA_texOff(0.0);
+    return LUMA_texOff(0);
 }
 
 //!HOOK CHROMA

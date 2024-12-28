@@ -20,16 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!PARAM distance
-//!TYPE float
-//!MINIMUM 0.0
-2.0
-
-//!PARAM intensity
-//!TYPE float
-//!MINIMUM 0.0
-128.0
-
 //!HOOK CHROMA
 //!BIND LUMA
 //!BIND HOOKED
@@ -43,6 +33,16 @@ vec4 hook() {
     return LUMA_texOff(0.0);
 }
 
+//!PARAM distance_coeff
+//!TYPE float
+//!MINIMUM 0.0
+2.0
+
+//!PARAM intensity_coeff
+//!TYPE float
+//!MINIMUM 0.0
+128.0
+
 //!HOOK CHROMA
 //!BIND LUMA
 //!BIND LUMA_LOWRES
@@ -54,7 +54,7 @@ vec4 hook() {
 //!DESC [FastBilateral_RT] (Upscaling Chroma)
 
 float comp_w(vec2 spatial_distance, float intensity_distance) {
-    return max(100.0 * exp(-distance * pow(length(spatial_distance), 2.0) - intensity * pow(intensity_distance, 2.0)), 1e-32);
+    return max(100.0 * exp(-distance_coeff * pow(length(spatial_distance), 2.0) - intensity_coeff * pow(intensity_distance, 2.0)), 1e-32);
 }
 
 vec4 hook() {
@@ -94,4 +94,3 @@ vec4 hook() {
     output_pix.xy = clamp(ct / wt, 0.0, 1.0);
     return output_pix;
 }
-
