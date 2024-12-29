@@ -16,7 +16,7 @@ ExternalProject_Add(llvm-libcxx
         -DCMAKE_RANLIB=${CMAKE_INSTALL_PREFIX}/bin/llvm-ranlib
         -DCMAKE_C_COMPILER_WORKS=1
         -DCMAKE_CXX_COMPILER_WORKS=1
-        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-w64-windows-gnu
+        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-pc-windows-gnu
         -DLLVM_ENABLE_RUNTIMES='libunwind,libcxxabi,libcxx'
         -DLLVM_PATH=${LLVM_SRC}/llvm
         -DLIBUNWIND_USE_COMPILER_RT=TRUE
@@ -27,7 +27,7 @@ ExternalProject_Add(llvm-libcxx
         -DLIBCXX_ENABLE_STATIC=ON
         -DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=TRUE
         -DLIBCXX_CXX_ABI=libcxxabi
-        -DLIBCXX_LIBDIR_SUFFIX=""
+        -DLIBCXX_LIBDIR_SUFFIX=''
         -DLIBCXX_INCLUDE_TESTS=FALSE
         -DLIBCXXABI_INCLUDE_TESTS=FALSE
         -DLIBUNWIND_INCLUDE_TESTS=FALSE
@@ -37,7 +37,7 @@ ExternalProject_Add(llvm-libcxx
         -DLIBCXXABI_USE_COMPILER_RT=ON
         -DLIBCXXABI_USE_LLVM_UNWINDER=ON
         -DLIBCXXABI_ENABLE_SHARED=OFF
-        -DLIBCXXABI_LIBDIR_SUFFIX=""
+        -DLIBCXXABI_LIBDIR_SUFFIX=''
     BUILD_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR>
     INSTALL_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR> install
             COMMAND bash -c "cp ${MINGW_INSTALL_PREFIX}/lib/libc++.a ${MINGW_INSTALL_PREFIX}/lib/libstdc++.a"
