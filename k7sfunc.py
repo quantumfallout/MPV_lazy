@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.6.3"
+__version__ = "0.6.4"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -1567,7 +1567,7 @@ def RIFE_NV(
 		scale_model = 1
 
 	tile_size = 32  ## https://github.com/AmusementClub/vs-mlrt/blob/2adfbab790eebe51c62c886400b0662570dfe3e9/scripts/vsmlrt.py#L1014-L1023
-	if model = 4251 :
+	if model == 4251 :
 		tile_size = 128
 	elif model in [426, 4262] :
 		tile_size = 64
