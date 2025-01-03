@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -167,7 +167,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -874,7 +874,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -1581,7 +1581,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -2288,7 +2288,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -2994,7 +2994,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4

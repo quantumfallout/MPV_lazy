@@ -27,7 +27,7 @@
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.0048029353, -0.0072232913, -0.0070785508, -0.06975246);
@@ -50,7 +50,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.029569007, -0.0018080809, -0.0026475212, -0.0016337278);
@@ -73,7 +73,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.030757654, -0.0023914936, -0.0031785744, -0.00013729594);
@@ -96,7 +96,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.004444703, -0.0063334177, 0.011145589, -0.062231414);
@@ -122,7 +122,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.0024663678, 0.011313024, 0.15910129, 0.0067961644);
@@ -175,7 +175,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.04062293, -0.015505449, -0.009494721, 0.010760104);
@@ -228,7 +228,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.00445588, 0.028890533, -0.00167073, 0.023317678);
@@ -281,7 +281,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.011157331, -0.014024247, -0.0046964437, -0.040441036);
@@ -334,7 +334,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.021460049, 0.0108942855, 0.003782156, 0.016570373);
@@ -387,7 +387,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.03431167, 0.06790597, 0.020297438, 0.031173171);
@@ -440,7 +440,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.061047036, 0.074685715, -0.11393315, -0.009330238);
@@ -493,7 +493,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.019289372, 0.011823588, 0.0038917207, 0.032854144);
@@ -546,7 +546,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.02903046, -0.015861642, -0.010384466, 0.00865693);
@@ -599,7 +599,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.009802474, 0.018130537, 0.015075051, 0.035205927);
@@ -652,7 +652,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.006042823, 0.009349947, -0.027979026, 0.029152593);
@@ -705,7 +705,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.016256964, -0.0525194, 0.0055958726, -0.0010205801);
@@ -758,7 +758,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.01135842, -0.0023457925, 0.019222178, -0.024332073);
@@ -811,7 +811,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.004544422, -0.0014487136, -0.002832534, -0.0059886915);
@@ -864,7 +864,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.0178333, -0.110648625, -0.008567649, -0.0025198748);
@@ -917,7 +917,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.0014514568, 0.01588143, -0.012800204, -0.005271462);
@@ -970,7 +970,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.011853358, -0.004785697, 0.0072073224, -0.021999465);
@@ -1023,7 +1023,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.007904944, 0.0044720937, -0.00031772134, -0.00093672966);
@@ -1076,7 +1076,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.009151383, 0.0039645405, 0.001490486, 0.00083406526);
@@ -1129,7 +1129,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(-0.004811584, 0.009411829, 0.038750876, -0.019982124);
@@ -1186,7 +1186,7 @@ vec4 hook() {
 //!WIDTH LUMA.w
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.09818033, 0.0965566, 0.10185645, 0.10128673);
@@ -1235,7 +1235,7 @@ vec4 hook() {
 //!WIDTH LUMA.w 2.0 *
 //!HEIGHT LUMA.h 2.0 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 
 vec4 hook() {
     vec4 result = vec4(0.0, 0.0, 0.0, 1.0);

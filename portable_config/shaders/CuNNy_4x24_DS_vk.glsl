@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -143,7 +143,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (in_mul * texelFetch(in_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(0, 0), 0))
 #define l1(x, y) (in_mul * texelFetch(in_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(1, 0), 0))
@@ -571,7 +571,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (conv1_mul * texelFetch(conv1_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(0, 0), 0))
 #define l1(x, y) (conv1_mul * texelFetch(conv1_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(1, 0), 0))
@@ -999,7 +999,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (conv2_mul * texelFetch(conv2_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(0, 0), 0))
 #define l1(x, y) (conv2_mul * texelFetch(conv2_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(1, 0), 0))
@@ -1427,7 +1427,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (conv3_mul * texelFetch(conv3_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(0, 0), 0))
 #define l1(x, y) (conv3_mul * texelFetch(conv3_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 2) + ivec2(1, 0), 0))
@@ -1854,7 +1854,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.3 > OUTPUT.h LUMA.h / 1.3 > *
+//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
