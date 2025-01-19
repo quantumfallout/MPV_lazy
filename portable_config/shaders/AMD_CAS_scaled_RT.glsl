@@ -37,15 +37,55 @@
 // on what kind of content the filter is running on. You might want to create seperate versions of the file with different
 // colorspace values, and apply them via autoprofiles. Note that running in non-linear light will result in oversharpening.
 
+//!PARAM TRC
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 6
+4
+
+//!PARAM GAMMA
+//!TYPE float
+//!MINIMUM 0.0
+2.2
+
+//!PARAM SHARP
+//!TYPE float
+//!MINIMUM 0.0
+//!MAXIMUM 1.0
+0.0
+
+//!PARAM SLOW
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+1
+
+//!PARAM SLOW2
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+0
+
+//!PARAM TRC2
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 6
+4
+
+//!PARAM GAMMA2
+//!TYPE float
+//!MINIMUM 0.0
+2.2
+
 //!HOOK LUMA
 //!BIND HOOKED
-//!DESC [AMD_CAS_scaled] FidelityFX Upsampling and Sharpening v1.0.2 (Relinearization)
+//!DESC [AMD_CAS_scaled_RT] FidelityFX Upsampling and Sharpening v1.0.2 (Relinearization)
 //!WHEN OUTPUT.w OUTPUT.h * LUMA.w LUMA.h * / 1.0 >
 
 // User variables - Relinearization
 // Compatibility
-#define SOURCE_TRC 4 // Is needed to convert from source colorspace to linear light. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG, 6 = Custom
-#define CUSTOM_GAMMA 2.2 // Custom power gamma curve to use if and when SOURCE_TRC is 6.
+#define SOURCE_TRC     TRC     // Is needed to convert from source colorspace to linear light. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG, 6 = Custom
+#define CUSTOM_GAMMA   GAMMA   // Custom power gamma curve to use if and when SOURCE_TRC is 6.
 
 // Shader code
 
@@ -98,22 +138,22 @@ vec4 hook() {
 
 //!HOOK LUMA
 //!BIND HOOKED
-//!DESC [AMD_CAS_scaled] FidelityFX Upsampling and Sharpening v1.0.2
+//!DESC [AMD_CAS_scaled_RT] FidelityFX Upsampling and Sharpening v1.0.2
 //!WHEN OUTPUT.w OUTPUT.h * LUMA.w LUMA.h * / 1.0 >
 //!WIDTH OUTPUT.w OUTPUT.w LUMA.w 2 * < * LUMA.w 2 * OUTPUT.w LUMA.w 2 * > * + OUTPUT.w OUTPUT.w LUMA.w 2 * = * +
 //!HEIGHT OUTPUT.h OUTPUT.h LUMA.h 2 * < * LUMA.h 2 * OUTPUT.h LUMA.h 2 * > * + OUTPUT.h OUTPUT.h LUMA.h 2 * = * +
 
 // User variables - Upsampling and Sharpening
 // Intensity
-#define SHARPENING 0.0 // Adjusts the range the shader adapts to high contrast (0 is not all the way off).  Higher values = more high contrast sharpening. 0.0 to 1.0.
+#define SHARPENING             SHARP    // Adjusts the range the shader adapts to high contrast (0 is not all the way off).  Higher values = more high contrast sharpening. 0.0 to 1.0.
 
 // Performance
-#define CAS_BETTER_DIAGONALS 1 // If set to 0, drops certain math and texture lookup operations for better performance. This is only useful on pre-OpenGL 4.0 renderers and there is no need to disable it otherwise. 0 or 1.
-#define CAS_GO_SLOWER 0 // If set to 1, disables the use of optimized approximate transcendental functions which might slightly increase accuracy in exchange of performance. 0 or 1.
+#define CAS_BETTER_DIAGONALS   SLOW     // If set to 0, drops certain math and texture lookup operations for better performance. This is only useful on pre-OpenGL 4.0 renderers and there is no need to disable it otherwise. 0 or 1.
+#define CAS_GO_SLOWER          SLOW2    // If set to 1, disables the use of optimized approximate transcendental functions which might slightly increase accuracy in exchange of performance. 0 or 1.
 
 // Compatibility
-#define TARGET_TRC 4 // Is needed to convert from source colorspace to target colorspace. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG, 6 = Custom
-#define CUSTOM_GAMMA 2.2 // Custom power gamma curve to use if and when TARGET_TRC is 6.
+#define TARGET_TRC             TRC2     // Is needed to convert from source colorspace to target colorspace. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG, 6 = Custom
+#define CUSTOM_GAMMA           GAMMA2   // Custom power gamma curve to use if and when TARGET_TRC is 6.
 
 // Shader code
 
@@ -413,3 +453,4 @@ vec4 hook()
 
 	return pix;
 }
+

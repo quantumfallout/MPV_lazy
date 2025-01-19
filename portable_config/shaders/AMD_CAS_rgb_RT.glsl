@@ -17,13 +17,61 @@
 
 // Mod of AMD_CAS.glsl
 
+//!PARAM TRC
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 5
+4
+
+//!PARAM SHARP
+//!TYPE float
+//!MINIMUM 0.0
+//!MAXIMUM 1.0
+1.0
+
+//!PARAM CTRS
+//!TYPE float
+//!MINIMUM 0.0
+//!MAXIMUM 1.0
+0.0
+
+//!PARAM SLOW
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+1
+
+//!PARAM SLOW2
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+0
+
+//!PARAM SLOW3
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+0
+
+//!PARAM ALPHA
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 1
+0
+
+//!PARAM TRC2
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 5
+4
+
 //!HOOK OUTPUT
 //!BIND HOOKED
-//!DESC [AMD_CAS_rgb] (Relinearization)
+//!DESC [AMD_CAS_rgb_RT] (Relinearization)
 
 // User variables - Relinearization
 // Compatibility
-#define SOURCE_TRC 4 // Is needed to convert from source colorspace to linear light. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG
+#define SOURCE_TRC   TRC   // Is needed to convert from source colorspace to linear light. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG
 
 // Shader code
 
@@ -85,21 +133,21 @@ vec4 hook() {
 
 //!HOOK OUTPUT
 //!BIND HOOKED
-//!DESC [AMD_CAS_rgb]
+//!DESC [AMD_CAS_rgb_RT]
 
 // User variables
 // Intensity
-#define SHARPENING 1.0 // Sharpening intensity: Adjusts sharpening intensity by averaging the original pixels to the sharpened result.  1.0 is the unmodified default. 0.0 to 1.0.
-#define CONTRAST 0.0 // Adjusts the range the shader adapts to high contrast (0 is not all the way off).  Higher values = more high contrast sharpening. 0.0 to 1.0.
+#define SHARPENING             SHARP   // Sharpening intensity: Adjusts sharpening intensity by averaging the original pixels to the sharpened result.  1.0 is the unmodified default. 0.0 to 1.0.
+#define CONTRAST               CTRS    // Adjusts the range the shader adapts to high contrast (0 is not all the way off).  Higher values = more high contrast sharpening. 0.0 to 1.0.
 
 // Performance
-#define CAS_BETTER_DIAGONALS 1 // If set to 0, drops certain math and texture lookup operations for better performance. 0 or 1.
-#define CAS_SLOW 0 // If set to 1, uses all the three RGB coefficients for calculating weights which might slightly increase quality in exchange of performance, otherwise only uses the green coefficient by default. 0 or 1.
-#define CAS_GO_SLOWER 0 // If set to 1, disables the use of optimized approximate transcendental functions which might slightly increase accuracy in exchange of performance. 0 or 1.
-#define SKIP_ALPHA 0 // If set to 1, skips transparency preservation for better performance on OpenGL 4.0+ renderers. 0 or 1.
+#define CAS_BETTER_DIAGONALS   SLOW    // If set to 0, drops certain math and texture lookup operations for better performance. 0 or 1.
+#define CAS_SLOW               SLOW2   // If set to 1, uses all the three RGB coefficients for calculating weights which might slightly increase quality in exchange of performance, otherwise only uses the green coefficient by default. 0 or 1.
+#define CAS_GO_SLOWER          SLOW3   // If set to 1, disables the use of optimized approximate transcendental functions which might slightly increase accuracy in exchange of performance. 0 or 1.
+#define SKIP_ALPHA             ALPHA   // If set to 1, skips transparency preservation for better performance on OpenGL 4.0+ renderers. 0 or 1.
 
 // Compatibility
-#define TARGET_TRC 4 // Is needed to convert from source colorspace to target colorspace. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG
+#define TARGET_TRC             TRC2    // Is needed to convert from source colorspace to target colorspace. 0 = None (Skip conversion), 1 = Rec709, 2 = PQ, 3 = sRGB, 4 = BT.1886, 5 = HLG
 
 // Shader code
 
@@ -315,3 +363,4 @@ vec4 hook()
 	return vec4(pix, e.a);
 #endif
 }
+
