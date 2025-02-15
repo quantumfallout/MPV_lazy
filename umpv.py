@@ -21,6 +21,14 @@ import sys
 from collections.abc import Iterable
 from typing import BinaryIO
 
+############
+# 用户选项 #
+############
+
+Socket_Path = r"\\.\pipe\umpv"
+Loadfile_Flag = "replace"
+## 管道名称。如需兼容 SVP Manager ，请修改值为 r"\\.\pipe\mpvpipe"
+## 打开行为。可用值参考 https://mpv.io/manual/master/#command-interface-[%3Coptions%3E]]]
 
 def is_url(filename: str) -> bool:
     parts = filename.split("://", 1)
@@ -31,40 +39,21 @@ def is_url(filename: str) -> bool:
     prefix = parts[0]
     return all(c in allowed_symbols for c in prefix)
 
-def get_socket_path() -> str:
-    if os.name == "nt":
-        return r"\\.\pipe\umpv"
-
-    base_dir = (
-        os.getenv("UMPV_SOCKET_DIR") or
-        os.getenv("XDG_RUNTIME_DIR") or
-        os.getenv("HOME") or
-        os.getenv("TMPDIR")
-    )
-
-    if not base_dir:
-        raise Exception("Could not determine a base directory for the socket. "
-                        "Ensure that one of the following environment variables is set: "
-                        "UMPV_SOCKET_DIR, XDG_RUNTIME_DIR, HOME or TMPDIR.")
-
-    return os.path.join(base_dir, ".umpv")
-
 def send_files_to_mpv(conn: socket.socket | BinaryIO, files: Iterable[str]) -> None:
     try:
         send = conn.send if isinstance(conn, socket.socket) else conn.write
         for f in files:
             f = f.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
-            send(f'raw loadfile "{f}" replace\n'.encode())
+            send(f'raw loadfile "{f}" "{Loadfile_Flag}"\n'.encode())
     except Exception:
         print("mpv is terminating or the connection was lost.", file=sys.stderr)
         sys.exit(1)
 
-def start_mpv(files: Iterable[str], socket_path: str) -> None:
-    mpv = "mpv" if os.name != "nt" else "mpv.exe"
+def start_mpv(files: Iterable[str], Socket_Path: str) -> None:
+    mpv = "mpv.exe"
     mpv_command = shlex.split(os.getenv("MPV", mpv))
     mpv_command.extend([
-        "--profile=builtin-pseudo-gui",
-        f"--input-ipc-server={socket_path}",
+        f"--input-ipc-server={Socket_Path}",
         "--",
     ])
     mpv_command.extend(files)
@@ -72,18 +61,12 @@ def start_mpv(files: Iterable[str], socket_path: str) -> None:
 
 def main() -> None:
     files = (os.path.abspath(f) if not is_url(f) else f for f in sys.argv[1:])
-    socket_path = get_socket_path()
 
     try:
-        if os.name == "nt":
-            with open(socket_path, "r+b", buffering=0) as pipe:
-                send_files_to_mpv(pipe, files)
-        else:
-            with socket.socket(socket.AF_UNIX) as sock:
-                sock.connect(socket_path)
-                send_files_to_mpv(sock, files)
+        with open(Socket_Path, "r+b", buffering=0) as pipe:
+            send_files_to_mpv(pipe, files)
     except (FileNotFoundError, ConnectionRefusedError):
-        start_mpv(files, socket_path)
+        start_mpv(files, Socket_Path)
 
 if __name__ == "__main__":
     main()
