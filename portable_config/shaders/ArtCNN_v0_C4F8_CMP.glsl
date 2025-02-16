@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!DESC ArtCNN C4F8 (Conv2D)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND LUMA
@@ -90,7 +90,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), result1);
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-1-ReLU)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-1-ReLU)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND conv2d
@@ -188,7 +188,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), max(result1, V4(0.0)));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-2-ReLU)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-2-ReLU)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND conv2d_1
@@ -286,7 +286,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), max(result1, V4(0.0)));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-3-ReLU)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-3-ReLU)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND conv2d_2
@@ -384,7 +384,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), max(result1, V4(0.0)));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-4-ReLU)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-4-ReLU)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND conv2d_3
@@ -482,7 +482,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), max(result1, V4(0.0)));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-5)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-5)
 //!COMPUTE 24 16 12 16
 //!HOOK LUMA
 //!BIND conv2d_4
@@ -580,7 +580,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(1, 0), result1);
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-6)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Conv2D-6)
 //!COMPUTE 12 16 12 16
 //!HOOK LUMA
 //!BIND conv2d
@@ -659,7 +659,7 @@ void hook() {
     imageStore(out_image, output_base + ivec2(0, 0), result0);
 }
 
-//!DESC ArtCNN C4F8 (Depth-To-Space)
+//!DESC [ArtCNN_v0_C4F8_CMP] (Depth-To-Space)
 //!COMPUTE 12 16 12 16
 //!HOOK LUMA
 //!BIND conv2d_6

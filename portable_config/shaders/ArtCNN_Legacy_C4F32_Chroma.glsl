@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!DESC ArtCNN C4F32 Chroma (Doubling Chroma)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Doubling Chroma)
 //!HOOK CHROMA
 //!BIND CHROMA
 //!WIDTH CHROMA.w 2.0 *
@@ -30,7 +30,7 @@ vec4 hook() {
     return CHROMA_texOff(0.0);
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_0
@@ -51,7 +51,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_1
@@ -72,7 +72,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_2
@@ -93,7 +93,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_3
@@ -114,7 +114,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_4
@@ -135,7 +135,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_5
@@ -156,7 +156,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_6
@@ -177,7 +177,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!SAVE conv2d_7
@@ -198,7 +198,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -289,7 +289,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -380,7 +380,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -471,7 +471,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -562,7 +562,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -653,7 +653,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -744,7 +744,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -835,7 +835,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-1-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -926,7 +926,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1017,7 +1017,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1108,7 +1108,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1199,7 +1199,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1290,7 +1290,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1381,7 +1381,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1472,7 +1472,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1563,7 +1563,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-2-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -1654,7 +1654,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -1745,7 +1745,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -1836,7 +1836,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -1927,7 +1927,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -2018,7 +2018,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -2109,7 +2109,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -2200,7 +2200,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -2291,7 +2291,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-3-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -2382,7 +2382,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2473,7 +2473,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2564,7 +2564,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2655,7 +2655,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2746,7 +2746,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2837,7 +2837,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -2928,7 +2928,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -3019,7 +3019,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-4-ReLU)
 //!HOOK NATIVE
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -3110,7 +3110,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3201,7 +3201,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3292,7 +3292,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3383,7 +3383,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3474,7 +3474,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3565,7 +3565,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3656,7 +3656,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3747,7 +3747,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-5)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-5)
 //!HOOK NATIVE
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -3838,7 +3838,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Conv2D-6)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Conv2D-6)
 //!HOOK NATIVE
 //!BIND conv2d_0
 //!BIND conv2d_5_0
@@ -3937,7 +3937,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F32 Chroma (Merging)
+//!DESC [ArtCNN_Legacy_C4F32_Chroma] (Merging)
 //!HOOK NATIVE
 //!BIND NATIVE
 //!BIND conv2d_6_0

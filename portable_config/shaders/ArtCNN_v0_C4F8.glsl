@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!DESC ArtCNN C4F8 (Conv2D)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D)
 //!HOOK LUMA
 //!BIND LUMA
 //!SAVE conv2d_0
@@ -43,7 +43,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F8 (Conv2D)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D)
 //!HOOK LUMA
 //!BIND LUMA
 //!SAVE conv2d_1
@@ -66,7 +66,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-1-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-1-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -99,7 +99,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-1-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-1-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_0
 //!BIND conv2d_1
@@ -132,7 +132,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-2-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-2-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -165,7 +165,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-2-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-2-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_1_0
 //!BIND conv2d_1_1
@@ -198,7 +198,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-3-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-3-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -231,7 +231,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-3-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-3-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_2_0
 //!BIND conv2d_2_1
@@ -264,7 +264,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-4-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-4-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -297,7 +297,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-4-ReLU)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-4-ReLU)
 //!HOOK LUMA
 //!BIND conv2d_3_0
 //!BIND conv2d_3_1
@@ -330,7 +330,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-5)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-5)
 //!HOOK LUMA
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -363,7 +363,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-5)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-5)
 //!HOOK LUMA
 //!BIND conv2d_4_0
 //!BIND conv2d_4_1
@@ -396,7 +396,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F8 (Conv2D-6)
+//!DESC [ArtCNN_v0_C4F8] (Conv2D-6)
 //!HOOK LUMA
 //!BIND conv2d_0
 //!BIND conv2d_5_0
@@ -431,7 +431,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F8 (Depth-To-Space)
+//!DESC [ArtCNN_v0_C4F8] (Depth-To-Space)
 //!HOOK LUMA
 //!BIND conv2d_6_0
 //!WIDTH LUMA.w 2.0 *

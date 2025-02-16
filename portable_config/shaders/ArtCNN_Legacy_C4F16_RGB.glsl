@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!DESC ArtCNN C4F16 RGB (Conv-0)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-0)
 //!HOOK MAIN
 //!BIND MAIN
 //!SAVE conv2d_tf
@@ -43,7 +43,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-0)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-0)
 //!HOOK MAIN
 //!BIND MAIN
 //!SAVE conv2d_tf1
@@ -66,7 +66,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-0)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-0)
 //!HOOK MAIN
 //!BIND MAIN
 //!SAVE conv2d_tf2
@@ -89,7 +89,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-0)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-0)
 //!HOOK MAIN
 //!BIND MAIN
 //!SAVE conv2d_tf3
@@ -112,7 +112,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-1-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_tf
 //!BIND conv2d_tf1
@@ -168,7 +168,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-1-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_tf
 //!BIND conv2d_tf1
@@ -224,7 +224,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-1-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_tf
 //!BIND conv2d_tf1
@@ -280,7 +280,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-1-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-1-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_tf
 //!BIND conv2d_tf1
@@ -336,7 +336,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-2-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_1_tf
 //!BIND conv2d_1_tf1
@@ -392,7 +392,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-2-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_1_tf
 //!BIND conv2d_1_tf1
@@ -448,7 +448,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-2-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_1_tf
 //!BIND conv2d_1_tf1
@@ -504,7 +504,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-2-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-2-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_1_tf
 //!BIND conv2d_1_tf1
@@ -560,7 +560,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-3-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_2_tf
 //!BIND conv2d_2_tf1
@@ -616,7 +616,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-3-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_2_tf
 //!BIND conv2d_2_tf1
@@ -672,7 +672,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-3-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_2_tf
 //!BIND conv2d_2_tf1
@@ -728,7 +728,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-3-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-3-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_2_tf
 //!BIND conv2d_2_tf1
@@ -784,7 +784,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-4-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_3_tf
 //!BIND conv2d_3_tf1
@@ -840,7 +840,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-4-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_3_tf
 //!BIND conv2d_3_tf1
@@ -896,7 +896,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-4-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_3_tf
 //!BIND conv2d_3_tf1
@@ -952,7 +952,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-4-ReLU)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-4-ReLU)
 //!HOOK MAIN
 //!BIND conv2d_3_tf
 //!BIND conv2d_3_tf1
@@ -1008,7 +1008,7 @@ vec4 hook() {
     return max(result, vec4(0.0));
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-5)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-5)
 //!HOOK MAIN
 //!BIND conv2d_4_tf
 //!BIND conv2d_4_tf1
@@ -1064,7 +1064,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-5)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-5)
 //!HOOK MAIN
 //!BIND conv2d_4_tf
 //!BIND conv2d_4_tf1
@@ -1120,7 +1120,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-5)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-5)
 //!HOOK MAIN
 //!BIND conv2d_4_tf
 //!BIND conv2d_4_tf1
@@ -1176,7 +1176,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Conv-5)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Conv-5)
 //!HOOK MAIN
 //!BIND conv2d_4_tf
 //!BIND conv2d_4_tf1
@@ -1232,7 +1232,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Long-Skip-Conv-6)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Long-Skip-Conv-6)
 //!HOOK MAIN
 //!BIND conv2d_5_tf
 //!BIND conv2d_tf
@@ -1292,7 +1292,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Long-Skip-Conv-6)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Long-Skip-Conv-6)
 //!HOOK MAIN
 //!BIND conv2d_5_tf
 //!BIND conv2d_tf
@@ -1352,7 +1352,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Long-Skip-Conv-6)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Long-Skip-Conv-6)
 //!HOOK MAIN
 //!BIND conv2d_5_tf
 //!BIND conv2d_tf
@@ -1412,7 +1412,7 @@ vec4 hook() {
     return result;
 }
 
-//!DESC ArtCNN C4F16 RGB (Pixel-Shuffle)
+//!DESC [ArtCNN_Legacy_C4F16_RGB] (Pixel-Shuffle)
 //!HOOK MAIN
 //!BIND conv2d_6_tf
 //!BIND conv2d_7_tf
