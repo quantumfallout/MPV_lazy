@@ -158,17 +158,9 @@ function get_name_from_index(i, notitle)
 	local title = mp.get_property("playlist/" .. i .. "/title")
 	local name = mp.get_property("playlist/" .. i .. "/filename")
 
-	--check if file has a media title stored or as property
-	if not title then
-		local mtitle = mp.get_property("media-title")
-		if i == pos and mp.get_property("filename") ~= mtitle then
-			if not title_table[name] then
-				title_table[name] = mtitle
-			end
-			title = mtitle
-		elseif title_table[name] then
-			title = title_table[name]
-		end
+	--check if file has a media title stored
+	if not title and title_table[name] then
+		title = title_table[name]
 	end
 
 	--if we have media title use a more conservative strip
@@ -235,14 +227,28 @@ function parse_filename_by_index(index)
 	return parse_filename(template, get_name_from_index(index), index)
 end
 
+function is_terminal_mode()
+	local width, height, aspect_ratio = mp.get_osd_size()
+	return width == 0 and height == 0 and aspect_ratio == 0
+end
+
 function draw_playlist()
 	refresh_globals()
+
+	-- if there is no playing file, then cursor can be -1. That would break rendering of playlist.
+	if cursor == -1 then
+		cursor = 0
+	end
+
 	local ass = assdraw.ass_new()
+	local terminaloutput = ""
 
 	ass:append(settings.style_ass_tags)
 
 	if settings.playlist_header ~= "" then
-		ass:append(parse_header(settings.playlist_header) .. "\\N")
+		local header = parse_header(settings.playlist_header)
+		ass:append(header .. "\\N")
+		terminaloutput = terminaloutput .. header .. "\n"
 	end
 
 	-- (visible index, playlist index) pairs of playlist entries that should be rendered
@@ -276,16 +282,28 @@ function draw_playlist()
 	for display_index, playlist_index in pairs(visible_indices) do
 		if display_index == 1 and playlist_index ~= 1 then
 			ass:append(settings.playlist_sliced_prefix .. "\\N")
+			terminaloutput = terminaloutput .. settings.playlist_sliced_prefix .. "\n"
 		elseif display_index == settings.showamount and playlist_index ~= plen then
 			ass:append(settings.playlist_sliced_suffix)
+			terminaloutput = terminaloutput .. settings.playlist_sliced_suffix .. "\n"
 		else
 			-- parse_filename_by_index expects 0 based index
-			ass:append(parse_filename_by_index(playlist_index - 1) .. "\\N")
+			local fname = parse_filename_by_index(playlist_index - 1)
+			ass:append(fname .. "\\N")
+			terminaloutput = terminaloutput .. fname .. "\n"
 		end
 	end
 
-	playlist_overlay.data = ass.text
-	playlist_overlay:update()
+	if is_terminal_mode() then
+		local timeout_setting = settings.playlist_display_timeout
+		local timeout = timeout_setting == 0 and 2147483 or timeout_setting
+		-- TODO: probably have to strip ass tags from terminal output
+		-- would maybe be possible to use terminal color output instead
+		mp.osd_message(terminaloutput, timeout)
+	else
+		playlist_overlay.data = ass.text
+		playlist_overlay:update()
+	end
 end
 
 function toggle_playlist(show_function)
@@ -397,20 +415,36 @@ end
 function movepageup()
 	refresh_globals()
 	if plen == 0 or cursor == 0 then return end
+	local offset = settings.showamount % 2 == 0 and 1 or 0
+	local last_file_that_doesnt_scroll = math.ceil(settings.showamount / 2)
+	local reverse_cursor = plen - cursor
+	local files_to_jump = math.max(last_file_that_doesnt_scroll + offset - reverse_cursor, 0) + settings.showamount - 2
 	local prev_cursor = cursor
-	cursor = cursor - settings.showamount
-	if cursor < 0 then cursor = 0 end
-	if selection then mp.commandv("playlist-move", prev_cursor, cursor) end
+	cursor = cursor - files_to_jump
+	if cursor < last_file_that_doesnt_scroll then
+		cursor = 0
+	end
+	if selection then
+		mp.commandv("playlist-move", prev_cursor, cursor)
+	end
 	playlist_show()
 end
 
 function movepagedown()
 	refresh_globals()
-	if plen == 0 or cursor == plen-1 then return end
+	if plen == 0 or cursor == plen - 1 then return end
+	local last_file_that_doesnt_scroll = math.ceil(settings.showamount / 2) - 1
+	local files_to_jump = math.max(last_file_that_doesnt_scroll - cursor, 0) + settings.showamount - 2
 	local prev_cursor = cursor
-	cursor = cursor + settings.showamount
-	if cursor >= plen then cursor = plen-1 end
-	if selection then mp.commandv("playlist-move", prev_cursor, cursor+1) end
+	cursor = cursor + files_to_jump
+
+	local cursor_on_last_page = plen - (settings.showamount - 3)
+	if cursor > cursor_on_last_page then
+		cursor = plen - 1
+	end
+	if selection then
+		mp.commandv("playlist-move", prev_cursor, cursor + 1)
+	end
 	playlist_show()
 end
 
@@ -539,7 +573,10 @@ function remove_keybinds()
 	keybindstimer = mp.add_periodic_timer(settings.playlist_display_timeout, remove_keybinds)
 	keybindstimer:kill()
 	playlist_overlay.data = ""
-	playlist_overlay:update()
+	playlist_overlay:remove()
+	if is_terminal_mode() then
+		mp.osd_message("")
+	end
 	playlist_visible = false
 	if dynamic_binds then
 		unbind_keys(settings.key_move2up, "moveup")

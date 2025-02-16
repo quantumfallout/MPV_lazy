@@ -1,14 +1,16 @@
 --[[
 SOURCE_ https://github.com/tomasklaen/uosc/tree/main/src/uosc
-COMMIT_ 7ad2ee495e74bf01990e2f709c1b5853fa02482d
+COMMIT_ c53050b8bbae330a486401afd68aa0e1fc9f0f29
 文档_ https://github.com/hooke007/MPV_lazy/discussions/186
 
 极简主义设计驱动的多功能界面脚本群组，兼容 thumbfast 新缩略图引擎
 ]]
 
-local uosc_version = '5.7.0'
+local uosc_version = '5.8.0'
 
 mp.commandv('script-message', 'uosc-version', uosc_version)
+
+mp.set_property('osc', 'no')
 
 assdraw = require('mp.assdraw')
 opt = require('mp.options')
@@ -107,7 +109,7 @@ defaults = {
 	chapter_range_patterns = 'openings:オープニング;endings:エンディング',
 	languages = 'slang,en',                   -- https://opensubtitles.stoplight.io/docs/opensubtitles-api/1de776d20e873-languages
 	disable_elements = '',
-
+	subtitles_directory = '~~/_cache/usubs',
 	idlescreen = true,
 	idlemsg = 'default',
 	idle_call_menu = 0,
@@ -389,6 +391,7 @@ state = {
 	time_human = nil, -- current playback time in human format
 	destination_time_human = nil, -- depends on options.destination_time
 	pause = mp.get_property_native('pause'),
+	ime_active = mp.get_property_native("input-ime"),
 	chapters = {},
 	---@type {index: number; title: string}|nil
 	current_chapter = nil,
@@ -986,11 +989,12 @@ bind_command('playlist', create_self_updating_menu_opener({
 	footnote = ulang._playlist_submenu_footnote,
 	serializer = function(playlist)
 		local items = {}
+		local force_filename = mp.get_property_native('osd-playlist-entry') == 'filename'
 		for index, item in ipairs(playlist) do
-			local is_url = is_protocol(item.filename)
-			local item_title = type(item.title) == 'string' and #item.title > 0 and item.title or false
+			local title = type(item.title) == 'string' and #item.title > 0 and item.title or false
 			items[index] = {
-				title = item_title or (is_url and item.filename or serialize_path(item.filename).basename),
+				title = (not force_filename and title) and title
+					or (is_protocol(item.filename) and item.filename or serialize_path(item.filename).basename),
 				hint = tostring(index),
 				active = item.current,
 				value = index,
@@ -1154,7 +1158,13 @@ bind_command('paste-to-playlist', function()
 		end
 	end
 end)
-bind_command('copy-to-clipboard', function() set_clipboard(state.path) end)
+bind_command('copy-to-clipboard', function()
+	if state.path then
+		set_clipboard(state.path)
+	else
+		mp.commandv('show-text', ulang._clipboard_osd2, 3000)
+	end
+end)
 bind_command('open-config-directory', function()
 	local config_path = mp.command_native({'expand-path', '~~/mpv.conf'})
 	local config = serialize_path(normalize_path(config_path))
