@@ -14,67 +14,37 @@ call :ensure_vista
 :: Make sure the script is running as admin
 call :ensure_admin
 
-:: Command line arguments to use when launching mpv from a file association
-set mpv_args=
-
-:: Get mpv.exe location
+:: Get umpv.exe location
 cd /D %~dp0\..
-set mpv_path=%cd%\mpv.exe
-if not exist "%mpv_path%" call :die "mpv.exe 不在上级目录中"
-
-:: umpv
-set py_path=%cd%\python.exe
-if not exist "%py_path%" call :die "python.exe 不在上级目录中"
-set umpv_path=%cd%\umpv.bat
-if not exist "%umpv_path%" call :die "umpv.bat 不在上级目录中"
+set umpv_path=%cd%\umpv.exe
+if not exist "%umpv_path%" call :die "umpv.exe 不在上级目录中"
 
 :: Get mpv-icon.ico location
 set icon_path=%~dp0mpv-icon.ico
 if not exist "%icon_path%" call :die "mpv-icon.ico 不在当前目录中"
 
-:: Register mpv.exe under the "App Paths" key, so it can be found by
+:: Register umpv.exe under the "App Paths" key, so it can be found by
 :: ShellExecute, the run command, the start menu, etc.
-set app_paths_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\mpv.exe
-call :reg add "%app_paths_key%" /d "%mpv_path%" /f
+set app_paths_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\umpv.exe
+call :reg add "%app_paths_key%" /d "%umpv_path%" /f
 call :reg add "%app_paths_key%" /v "UseUrl" /t REG_DWORD /d 1 /f
 
-:: Register mpv.exe under the "Applications" key to add some default verbs for
-:: when mpv is used from the "Open with" menu
+:: Register umpv.exe under the "Applications" key to add some default verbs for
+:: when umpv is used from the "Open with" menu
 set classes_root_key=HKLM\SOFTWARE\Classes
-set app_key=%classes_root_key%\Applications\mpv.exe
-call :reg add "%app_key%" /v "FriendlyAppName" /d "mpv" /f
+set app_key=%classes_root_key%\Applications\umpv.exe
+call :reg add "%app_key%" /v "FriendlyAppName" /d "umpv" /f
 call :add_verbs "%app_key%"
 
-:: Add mpv to the "Open with" list for all video and audio file types
-call :reg add "%classes_root_key%\SystemFileAssociations\video\OpenWithList\mpv.exe" /d "" /f
-call :reg add "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\mpv.exe" /d "" /f
+:: Add umpv to the "Open with" list for all video and audio file types
+call :reg add "%classes_root_key%\SystemFileAssociations\video\OpenWithList\umpv.exe" /d "" /f
+call :reg add "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\umpv.exe" /d "" /f
 
-:: Add DVD AutoPlay handler
-set autoplay_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers
-call :reg add "%classes_root_key%\io.mpv.dvd\shell\play" /d "&Play" /f
-call :reg add "%classes_root_key%\io.mpv.dvd\shell\play\command" /d "\"%mpv_path%\" %mpv_args% dvd:// --dvd-device=\"%%%%L\"" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayDVDMovieOnArrival" /v "Action" /d "Play DVD movie" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayDVDMovieOnArrival" /v "DefaultIcon" /d "%mpv_path%,0" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayDVDMovieOnArrival" /v "InvokeProgID" /d "io.mpv.dvd" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayDVDMovieOnArrival" /v "InvokeVerb" /d "play" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayDVDMovieOnArrival" /v "Provider" /d "mpv" /f
-call :reg add "%autoplay_key%\EventHandlers\PlayDVDMovieOnArrival" /v "MpvPlayDVDMovieOnArrival" /f
-
-:: Add Blu-ray AutoPlay handler
-call :reg add "%classes_root_key%\io.mpv.bluray\shell\play" /d "&Play" /f
-call :reg add "%classes_root_key%\io.mpv.bluray\shell\play\command" /d "\"%mpv_path%\" %mpv_args% bd:// --bluray-device=\"%%%%L\"" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayBluRayOnArrival" /v "Action" /d "Play Blu-ray movie" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayBluRayOnArrival" /v "DefaultIcon" /d "%mpv_path%,0" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayBluRayOnArrival" /v "InvokeProgID" /d "io.mpv.bluray" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayBluRayOnArrival" /v "InvokeVerb" /d "play" /f
-call :reg add "%autoplay_key%\Handlers\MpvPlayBluRayOnArrival" /v "Provider" /d "mpv" /f
-call :reg add "%autoplay_key%\EventHandlers\PlayBluRayOnArrival" /v "MpvPlayBluRayOnArrival" /f
-
-:: Add a capabilities key for mpv, which is registered later on for use in the
+:: Add a capabilities key for umpv, which is registered later on for use in the
 :: "Default Programs" control panel
-set capabilities_key=HKLM\SOFTWARE\Clients\Media\mpv\Capabilities
-call :reg add "%capabilities_key%" /v "ApplicationName" /d "mpv" /f
-call :reg add "%capabilities_key%" /v "ApplicationDescription" /d "mpv media player" /f
+set capabilities_key=HKLM\SOFTWARE\Clients\Media\umpv\Capabilities
+call :reg add "%capabilities_key%" /v "ApplicationName" /d "umpv" /f
+call :reg add "%capabilities_key%" /v "ApplicationDescription" /d "umpv media player" /f
 
 :: Add file types
 set supported_types_key=%app_key%\SupportedTypes
@@ -180,17 +150,17 @@ call :add_type "audio/x-scpls"                    "audio" "PLS Playlist"        
 call :add_type ""                                 "audio" "CUE Sheet"                  ".cue"
 
 :: Register "Default Programs" entry
-call :reg add "HKLM\SOFTWARE\RegisteredApplications" /v "mpv" /d "SOFTWARE\Clients\Media\mpv\Capabilities" /f
+call :reg add "HKLM\SOFTWARE\RegisteredApplications" /v "umpv" /d "SOFTWARE\Clients\Media\umpv\Capabilities" /f
 
 :: Enable long paths in Windows 10
 call :reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d 1 /f
 
 :: Add start menu link
-powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('%ProgramData%\Microsoft\Windows\Start Menu\Programs\mpv.lnk');$s.TargetPath='%mpv_path%';$s.Save()"
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('%ProgramData%\Microsoft\Windows\Start Menu\Programs\umpv.lnk');$s.TargetPath='%umpv_path%';$s.Save()"
 
 echo.
 echo 注册成功！
-echo 现在可以手动在控制面板中选取 mpv 为默认的 “视频播放器”
+echo 现在可以手动在控制面板中选取 umpv 为默认的 “视频播放器”
 echo.
 if [%unattended%] == [yes] exit 0
 <nul set /p =按下任意键转到 “系统设置-默认应用” 设置面板 . . .
@@ -211,7 +181,7 @@ exit 0
 	openfiles >nul 2>&1
 	if errorlevel 1 (
 		echo 该批处理脚本须要管理员权限
-		echo 选中 “mpv-install.bat” 右键 “以管理员身份运行” 重新操作
+		echo 选中该文件 右键 “以管理员身份运行” 重新操作
 		call :die
 	)
 	goto :EOF
@@ -304,7 +274,7 @@ exit 0
 	echo 关联文件格式 "%extension%"
 
 	:: Add ProgId
-	set prog_id=io.mpv%extension%
+	set prog_id=io.umpv%extension%
 	call :add_progid "%prog_id%" "%friendly_name%"
 
 	:: Add extensions

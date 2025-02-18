@@ -19,16 +19,22 @@ import string
 import subprocess
 import sys
 from collections.abc import Iterable
+from configparser import ConfigParser
 from typing import BinaryIO
 
-############
-# 用户选项 #
-############
 
-Socket_Path = r"\\.\pipe\umpv"
-Loadfile_Flag = "replace"
-## 管道名称。如需兼容 SVP Manager ，请修改值为 r"\\.\pipe\mpvpipe"
-## 打开行为。可用值参考 https://mpv.io/manual/master/#command-interface-[%3Coptions%3E]]]
+def read_conf():
+    conf = ConfigParser()
+    try :
+        conf.read(filenames="umpv.conf", encoding="utf-8")
+        param1 = conf["DEFAULT"].get("Socket_Path", r"\\.\pipe\umpv")
+        param2 = conf["DEFAULT"].get("Loadfile_Flag", "replace")
+    except :
+        param1 = r"\\.\pipe\umpv"
+        param2 = "replace"
+    return param1, param2
+
+Socket_Path, Loadfile_Flag = read_conf()
 
 def is_url(filename: str) -> bool:
     parts = filename.split("://", 1)
