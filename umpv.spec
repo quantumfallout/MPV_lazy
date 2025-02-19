@@ -1,5 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
-## `./python -m PyInstaller umpv.spec`
+
+"""
+此文件仅被用于编译 umpv.exe ，命令如下（同时需要 umpv.py 和 installer/mpv-icon.ico ）
+
+    ```
+    ./python -m PyInstaller umpv.spec`
+    ```
+"""
 
 a = Analysis(
     ['umpv.py'],
@@ -35,5 +42,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['mpv-icon.ico'],
+    icon=['installer/mpv-icon.ico'],
 )

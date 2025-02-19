@@ -17,6 +17,9 @@ https://github.com/vapoursynth/vapoursynth/blob/master/COPYING.LESSER
 ### yt-dlp
 https://github.com/yt-dlp/yt-dlp/blob/master/LICENSE
 
+### umpv
+https://github.com/mpv-player/mpv/blob/master/Copyright
+
 
 ## .../mpv-lazy/installer
 https://github.com/rossy/mpv-install/blob/master/COPYING

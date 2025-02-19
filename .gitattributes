@@ -6,3 +6,4 @@
 *.lua linguist-language=Lua
 *.md linguist-language=Markdown
 *.vpy linguist-language=Python
+*.spec linguist-language=Python

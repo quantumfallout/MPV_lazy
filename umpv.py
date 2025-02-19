@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
 """
-This script emulates "unique application" functionality. When starting playback with this script, it will try to reuse an already running instance of mpv (but only if that was started with umpv). Other mpv instances (not started by umpv) are ignored, and the script doesn't know about them.
+文档_ https://github.com/hooke007/MPV_lazy/wiki/0_FAQ#%E5%8D%95%E5%AE%9E%E4%BE%8B%E6%A8%A1%E5%BC%8F
 
-This only takes filenames as arguments. Custom options can't be used; the script interprets them as filenames. If mpv is already running, the files passed to umpv are appended to mpv's internal playlist. If a file does not exist or is otherwise not playable, mpv will skip the playlist entry when attempting to play it (from the GUI perspective, it's silently ignored).
+SOURCE_ https://github.com/mpv-player/mpv/blob/master/TOOLS/umpv
+COMMIT_ 48f944d21b42b682bd12e522f5b24fd1a0e15058
 
-If mpv isn't running yet, this script will start mpv and let it control the current terminal. It will not write output to stdout/stderr, because this will typically just fill ~/.xsession-errors with garbage.
-
-mpv will terminate if there are no more files to play, and running the umpv script after that will start a new mpv instance.
-
-Note: you can supply custom mpv path and options with the MPV environment variable. The environment variable will be split on whitespace, and the first item is used as path to mpv binary and the rest is passed as options _if_ the script starts mpv. If mpv is not started by the script (i.e. mpv is already running), this will be ignored.
+当前脚本已被裁剪 仅支持Windows
+此文件主要用于编译，使用umpv无须下载此文件，详见上方文档。
 """
 
 import os
