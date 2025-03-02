@@ -1,6 +1,6 @@
 --[[
 SOURCE_ https://github.com/tomasklaen/uosc/tree/main/src/uosc
-COMMIT_ c53050b8bbae330a486401afd68aa0e1fc9f0f29
+COMMIT_ 0b6580222ef5a2941025548d18c0ecfe88bb6ad5
 文档_ https://github.com/hooke007/MPV_lazy/discussions/186
 
 极简主义设计驱动的多功能界面脚本群组，兼容 thumbfast 新缩略图引擎
@@ -1256,6 +1256,16 @@ mp.register_script_message('select-menu-item', function(type, item_index, menu_i
 end)
 mp.register_script_message('close-menu', function(type)
 	if Menu:is_open(type) then Menu:close() end
+end)
+mp.register_script_message('menu-action', function(name, ...)
+	local menu = Menu:is_open()
+	if menu then
+		local method = ({
+			['search-cancel'] = 'search_cancel',
+			['search-query-update'] = 'search_query_update',
+		})[name]
+		if method then menu[method](menu, ...) end
+	end
 end)
 mp.register_script_message('thumbfast-info', function(json)
 	local data = utils.parse_json(json)
