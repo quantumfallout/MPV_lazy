@@ -350,7 +350,7 @@ function create_default_menu_items()
 		{title = ulang._cm_tools, items = {
 			{title = ulang._cm_keybinding, value = 'script-binding uosc/keybinds'},
 			{title = ulang._cm_stats_toggle, value = 'script-binding display-stats-toggle'},
-			{title = ulang._cm_console_on, value = 'script-binding console/enable'},
+			{title = ulang._cm_console_on, value = 'script-binding commands/open'},
 			{title = ulang._cm_border_toggle, value = 'cycle border'},
 			{title = ulang._cm_ontop_toggle, value = 'cycle ontop'},
 			{title = ulang._cm_audio_device, value = 'script-binding uosc/audio-device'},
