@@ -1,6 +1,6 @@
 --[[
 SOURCE_ https://github.com/mpv-player/mpv/blob/master/player/lua/stats.lua
-COMMIT_ 5459b0ff191b88215848f23750900aca0c0c248a
+COMMIT_ f676a9ff201d18c3741e223e626874dc986f9819
 文档_ stats.conf
 
 mpv.conf的前置条件 --load-stats-overlay=no
@@ -169,6 +169,15 @@ end
 local cache_ahead_buf, cache_speed_buf
 local perf_buffers = {}
 local process_key_binding
+
+local property_cache = {}
+
+local function get_property_cached(name, def)
+    if property_cache[name] ~= nil then
+        return property_cache[name]
+    end
+    return def
+end
 
 local function graph_add_value(graph, value)
     graph.pos = (graph.pos % graph.len) + 1
@@ -948,8 +957,9 @@ local function add_video_out(s)
 
     append(s, "", {prefix="显示设备：", nl=o.nl .. o.nl, indent=""})
     append(s, vo, {prefix_sep="", nl="", indent=""})
-    append_property(s, "display-names", {prefix_sep="", prefix="(", suffix=")",
-                                         no_prefix_markup=true, nl="", indent=" "})
+
+    append(s, get_property_cached("display-names"), {prefix_sep="", prefix="(", suffix=")",
+           no_prefix_markup=true, nl="", indent=" "})
     append(s, mp.get_property_native("current-gpu-context"),
            {prefix="GPU context：", nl="", indent=o.prefix_sep .. o.prefix_sep})
     append_property(s, "avsync", {prefix="A/V同步偏移："})
@@ -967,7 +977,7 @@ local function add_video_out(s)
 
     local scale = nil
     if not mp.get_property_native("fullscreen") then
-        scale = mp.get_property_native("current-window-scale")
+        scale = get_property_cached("current-window-scale")
     end
 
     local od = mp.get_property_native("osd-dimensions")
@@ -1014,9 +1024,9 @@ local function add_video(s)
             append(s, track["decoder"], {prefix="[", nl="", indent=" ", prefix_sep="",
                    no_prefix_markup=true, suffix="]"})
         end
-        append_property(s, "hwdec-current", {prefix="硬解API：", nl="",
-                        indent=o.prefix_sep .. o.prefix_sep,
-                        no_prefix_markup=false, suffix=""}, {no=true, [""]=true})
+        append(s, get_property_cached("hwdec-current"), {prefix="硬解API：", nl="",
+               indent=o.prefix_sep .. o.prefix_sep,
+               no_prefix_markup=false, suffix=""}, {no=true, [""]=true})
     end
     local has_prefix = false
     if o.show_frame_info then
@@ -1809,3 +1819,11 @@ end
 
 mp.observe_property("osd-height", "native", update_scale)
 mp.observe_property("osd-scale-by-window", "native", update_scale)
+
+local function update_property_cache(name, value)
+    property_cache[name] = value
+end
+
+mp.observe_property('current-window-scale', 'native', update_property_cache)
+mp.observe_property('display-names', 'string', update_property_cache)
+mp.observe_property('hwdec-current', 'string', update_property_cache)

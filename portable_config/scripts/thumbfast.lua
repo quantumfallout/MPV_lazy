@@ -417,7 +417,8 @@ local function spawn(time)
     local args = {
         mpv_path, "--config=no", "--terminal=no", "--msg-level=all=no", "--idle=yes", "--keep-open=always",
         "--pause=yes", "--ao=null",
-        "--load-auto-profiles=no", "--load-osd-console=no", "--load-select=no", "--load-stats-overlay=no", "--osc=no", "--autoload-files=no",
+        "--osc=no", "--load-stats-overlay=no", "load-console=no", "load-commands=no", "--load-auto-profiles=no", "--load-select=no", "--load-positioning=no",
+        "--clipboard-backends-clr", "--video-osd=no", "--autoload-files=no",
         "--vd-lavc-skiploopfilter=all", "--vd-lavc-skipidct=all", "--vd-lavc-software-fallback=1", "--vd-lavc-fast",
         "--vd-lavc-threads="..options.sw_threads, "--hwdec="..options.hwdec,
         "--edition="..(properties["edition"] or "auto"), "--vid="..(vid or "auto"), "--sub=no", "--audio=no",
