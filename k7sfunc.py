@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.6.6"
+__version__ = "0.6.7"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -1575,6 +1575,17 @@ def RIFE_NV(
 	w_tmp = math.ceil(w_in / tile_size) * tile_size - w_in
 	h_tmp = math.ceil(h_in / tile_size) * tile_size - h_in
 
+	shape_config = {
+		32: {"min": (10, 8), "opt": (60, 34), "max1": (128, 68), "max2": (64, 34)},
+		64: {"min": (5, 4), "opt": (30, 17), "max1": (64, 34), "max2": (32, 17)},
+		128: {"min": (3, 2), "opt": (15, 9), "max1": (32, 17), "max2": (16, 9)},
+	}
+	cfg = shape_config[tile_size]
+	min_shapes = [tile_size * x for x in cfg["min"]]
+	opt_shapes = [tile_size * x for x in cfg["opt"]]
+	max_shapes = [tile_size * x for x in cfg["max1"]]
+	max_shapes2 = [tile_size * x for x in cfg["max2"]]
+
 	if sc_mode == 0 :
 		cut0 = input
 	elif sc_mode == 1 :
@@ -1592,8 +1603,8 @@ def RIFE_NV(
 			num_streams=gpu_t, force_fp16=True, output_format=1,
 			workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 			use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-			static_shape=st_eng, min_shapes=[0, 0] if st_eng else [320, 256],
-			opt_shapes=None if st_eng else [1920, 1088], max_shapes=None if st_eng else ([4096, 2176] if lt_d2k else [2048, 1088]),
+			static_shape=st_eng, min_shapes=[0, 0] if st_eng else min_shapes,
+			opt_shapes=None if st_eng else opt_shapes, max_shapes=None if st_eng else (max_shapes if lt_d2k else max_shapes2),
 			device_id=gpu, short_path=True))
 		if w_tmp + h_tmp > 0 :
 			fin = core.std.Crop(clip=fin, right=w_tmp, bottom=h_tmp)
