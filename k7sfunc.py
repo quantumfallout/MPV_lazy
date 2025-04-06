@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.6.5"
+__version__ = "0.6.6"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -2720,8 +2720,8 @@ def DEINT_EX(
 			import qtgmc
 		except ImportError :
 			raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc")
-	if LooseVersion(qtgmc.__version__) < LooseVersion("0.0.3") :
-		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc 的版本号过低，至少 0.0.3")
+	if LooseVersion(qtgmc.__version__) < LooseVersion("0.2.0") :
+		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc 的版本号过低，至少 0.2.0")
 
 	output = qtgmc.QTGMCv2(input=input, fps_in=fps_in, obs=obs, deint_lv=deint_lv, src_type=src_type, deint_den=deint_den, tff=tff, cpu=cpu, gpu=gpu)
 
