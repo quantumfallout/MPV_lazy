@@ -427,7 +427,7 @@ local function spawn(time)
         "--pause=yes", "--ao=null",
         "--osc=no", "--load-stats-overlay=no", "load-console=no", "load-commands=no", "--load-auto-profiles=no", "--load-select=no", "--load-positioning=no",
         "--clipboard-backends-clr", "--video-osd=no", "--autoload-files=no",
-        "--vd-lavc-skiploopfilter=all", "--vd-lavc-skipidct=all", "--vd-lavc-software-fallback=1", "--vd-lavc-fast",
+        "--vd-lavc-skiploopfilter=all", "--vd-lavc-skipidct=all", "--hwdec-software-fallback=1", "--vd-lavc-fast",
         "--vd-lavc-threads="..options.sw_threads, "--hwdec="..options.hwdec,
         "--edition="..(properties["edition"] or "auto"), "--vid="..(vid or "auto"), "--sub=no", "--audio=no",
         "--start="..time,

@@ -14,7 +14,7 @@ echo 建议在CMD窗口进行按键检测（防止移动鼠标的操作刷屏）
 :: 输出将执行的参数信息
 echo ==========================================================
 echo == 启动参数
-echo mpv --config=no --vo=gou-next --input-test=yes --idle=yes --force-window=yes --hidpi-window-scale=no --autofit-smaller=25%x25% --geometry=80%:80%
+echo mpv --config=no --vo=gpu-next --input-test=yes --idle=yes --force-window=yes --hidpi-window-scale=no --autofit-smaller=25%x25% --geometry=80%:80%
 echo ==========================================================
 echo == 以下为日志
 echo ==========================================================
@@ -26,7 +26,7 @@ cd /D %~dp0\..
 :: mpv.com --version
 
 :: 执行启动参数
-mpv.com --config=no --vo=gou-next --input-test=yes --idle=yes --force-window=yes --hidpi-window-scale=no --autofit-smaller=25%%x25%% --geometry=80%%:80%%
+mpv.com --config=no --vo=gpu-next --input-test=yes --idle=yes --force-window=yes --hidpi-window-scale=no --autofit-smaller=25%%x25%% --geometry=80%%:80%%
 
 :: 手动退出后输出的文本
 echo ==========================================================
