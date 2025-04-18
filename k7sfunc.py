@@ -2,14 +2,15 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.7.1"
+__version__ = "0.7.5"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
 	"ACNET_STD", "ARTCNN_NV", "CUGAN_NV", "EDI_US_STD", "ESRGAN_DML", "ESRGAN_NV", "NGU_HQ", "WAIFU_DML", "WAIFU_NV",
 	"MVT_LQ", "MVT_STD", "MVT_POT", "MVT_MQ", "RIFE_STD", "RIFE_DML", "RIFE_NV", "SVP_LQ", "SVP_STD", "SVP_HQ", "SVP_PRO",
-	"BILA_NV", "BM3D_NV", "CCD_STD", "DFTT_STD", "DFTT_NV", "DPIR_NR_NV", "FFT3D_STD", "NLM_STD", "NLM_NV",
-	"COLOR_P3W_FIX", "CSC_RB", "DEBAND_STD", "DEINT_LQ", "DEINT_STD", "DEINT_EX", "DPIR_DBLK_NV", "EDI_AA_STD", "EDI_AA_NV", "IVTC_STD", "STAB_STD", "STAB_HQ", "UAI_DML", "UAI_NV_TRT", "UVR_MAD",
+	"DPIR_DBLK_NV", "BILA_NV", "BM3D_NV", "CCD_STD", "DFTT_STD", "DFTT_NV", "DPIR_NR_NV", "FFT3D_STD", "NLM_STD", "NLM_NV",
+	"COLOR_P3W_FIX", "CSC_RB", "DEBAND_STD", "DEINT_LQ", "DEINT_STD", "DEINT_EX", "EDI_AA_STD", "EDI_AA_NV", "IVTC_STD", "STAB_STD", "STAB_HQ",
+	"UAI_DML", "UAI_NV_TRT", "UVR_MAD",
 ]
 
 ##################################################
@@ -1587,7 +1588,7 @@ def RIFE_DML(
 			fin = core.std.Crop(clip=fin, right=w_tmp, bottom=h_tmp)
 	else :
 		fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=t_tta, _implementation=2, video_player=True, backend=vsmlrt.BackendV2.ORT_DML(
-			num_streams=gpu_t, fp16=fp16_qnt))
+			num_streams=gpu_t, fp16=False))  ## https://github.com/AmusementClub/vs-mlrt/issues/56#issuecomment-2801745592
 	output = core.resize.Bilinear(clip=fin, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
 	if not fps_factor.is_integer() :
 		output = core.std.AssumeFPS(clip=output, fpsnum=fps_in * fps_num * 1e6, fpsden=fps_den * 1e6)
@@ -1602,6 +1603,7 @@ def RIFE_NV(
 	input : vs.VideoNode,
 	lt_d2k : bool = False,
 	model : typing.Literal[46, 4251, 426, 4262] = 46,
+	int8_qnt : bool = False,
 	ext_proc : bool = True,
 	t_tta : bool = False,
 	fps_in : float = 23.976,
@@ -1622,6 +1624,8 @@ def RIFE_NV(
 		raise vs.Error(f"模块 {func_name} 的子参数 lt_d2k 的值无效")
 	if model not in [46, 4251, 426, 4262] :
 		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
+	if not isinstance(int8_qnt, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 int8_qnt 的值无效")
 	if not isinstance(ext_proc, bool) :
 		raise vs.Error(f"模块 {func_name} 的子参数 ext_proc 的值无效")
 	if not isinstance(t_tta, bool) :
@@ -1689,7 +1693,7 @@ def RIFE_NV(
 		st_eng = True
 	if (not lt_d2k and (size_in > 2048 * 1088)) or (size_in > 4096 * 2176) :
 		raise Exception("源分辨率超过限制的范围，已临时中止。")
-	if not st_eng and (((w_in > 4096) or (h_in > 2176)) or ((w_in < 289) or (h_in < 225))) :
+	if not st_eng and (((w_in > 4096) or (h_in > 2176)) or ((w_in < 384) or (h_in < 384))) :
 		raise Exception("源分辨率不属于动态引擎支持的范围，已临时中止。")
 
 	scale_model = 1
@@ -1734,7 +1738,7 @@ def RIFE_NV(
 		if w_tmp + h_tmp > 0 :
 			cut1 = core.std.AddBorders(clip=cut1, right=w_tmp, bottom=h_tmp)
 		fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=t_tta, _implementation=1, video_player=True, backend=vsmlrt.BackendV2.TRT(
-			num_streams=gpu_t, force_fp16=True, output_format=1,
+			num_streams=gpu_t, int8=int8_qnt, fp16=True, output_format=1,
 			workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 			use_cuda_graph=True, use_cublas=False, use_cudnn=False,
 			static_shape=st_eng, min_shapes=[0, 0] if st_eng else min_shapes,
@@ -1744,7 +1748,7 @@ def RIFE_NV(
 			fin = core.std.Crop(clip=fin, right=w_tmp, bottom=h_tmp)
 	else :
 		fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=t_tta, _implementation=2, video_player=True, backend=vsmlrt.BackendV2.TRT(
-			num_streams=gpu_t, force_fp16=True, output_format=1,
+			num_streams=gpu_t, int8=int8_qnt, fp16=True, output_format=1,
 			workspace=None if ws_size < 128 else ws_size,
 			use_cuda_graph=True, use_cublas=False, use_cudnn=False,
 			static_shape=st_eng, min_shapes=[0, 0],
@@ -2000,6 +2004,110 @@ def SVP_PRO(
 		super = core.svp1.Super(clip8, super_param)
 		vectors = core.svp1.Analyse(super["clip"], super["data"], clip if acc else clip8, analyse_param)
 		output = core.svp2.SmoothFps(clip if acc else clip8, super["clip"], super["data"], vectors["clip"], vectors["data"], smooth_param, src=clip if acc else clip8, fps=fps_in)
+
+	return output
+
+##################################################
+## DPIR去块
+##################################################
+
+def DPIR_DBLK_NV(
+	input : vs.VideoNode,
+	lt_hd : bool = False,
+	model : typing.Literal[2, 3] = 2,
+	nr_lv : float = 50.0,
+	gpu : typing.Literal[0, 1, 2] = 0,
+	gpu_t : int = 2,
+	st_eng : bool = False,
+	ws_size : int = 0,
+	vs_t : int = vs_thd_dft,
+) -> vs.VideoNode :
+
+	func_name = "DPIR_DBLK_NV"
+	if not isinstance(input, vs.VideoNode) :
+		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
+	if not isinstance(lt_hd, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 lt_hd 的值无效")
+	if model not in [2, 3] :
+		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
+	if not isinstance(nr_lv, (int, float)) or nr_lv <= 0.0 :
+		raise vs.Error(f"模块 {func_name} 的子参数 nr_lv 的值无效")
+	if gpu not in [0, 1, 2] :
+		raise vs.Error(f"模块 {func_name} 的子参数 gpu 的值无效")
+	if not isinstance(gpu_t, int) or gpu_t <= 0 :
+		raise vs.Error(f"模块 {func_name} 的子参数 gpu_t 的值无效")
+	if not isinstance(st_eng, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 st_eng 的值无效")
+	if not isinstance(ws_size, int) or ws_size < 0 :
+		raise vs.Error(f"模块 {func_name} 的子参数 ws_size 的值无效")
+	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
+		raise vs.Error(f"模块 {func_name} 的子参数 vs_t 的值无效")
+
+	if not hasattr(core, "trt") :
+		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 trt")
+
+	plg_dir = os.path.dirname(core.trt.Version()["path"]).decode()
+	mdl_fname = ["drunet_deblocking_grayscale", "drunet_deblocking_color"][[2, 3].index(model)]
+	mdl_pth = plg_dir + "/models/dpir/" + mdl_fname + ".onnx"
+	if not os.path.exists(mdl_pth) :
+		raise vs.Error(f"模块 {func_name} 所请求的模型缺失")
+
+	global vsmlrt
+	if vsmlrt is None :
+		try :
+			import vsmlrt
+		except ImportError :
+			raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt")
+	if LooseVersion(vsmlrt.__version__) < LooseVersion("3.18.1") :
+		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt 的版本号过低，至少 3.18.1")
+
+	core.num_threads = vs_t
+	w_in, h_in = input.width, input.height
+	size_in = w_in * h_in
+	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
+	fmt_src = input.format
+	fmt_in = fmt_src.id
+	fmt_bit_in = fmt_src.bits_per_sample
+	fmt_cf_in = fmt_src.color_family
+
+	if (not lt_hd and (size_in > 1280 * 720)) or (size_in > 2048 * 1080) :
+		raise Exception("源分辨率超过限制的范围，已临时中止。")
+	if not st_eng and (((w_in > 2048) or (h_in > 1080)) or ((w_in < 64) or (h_in < 64))) :
+		raise Exception("源分辨率不属于动态引擎支持的范围，已临时中止。")
+
+	tile_size = 8
+	w_tmp = math.ceil(w_in / tile_size) * tile_size - w_in
+	h_tmp = math.ceil(h_in / tile_size) * tile_size - h_in
+	if w_tmp + h_tmp > 0 :
+		cut0 = core.std.AddBorders(clip=input, right=w_tmp, bottom=h_tmp)
+	else :
+		cut0 = input
+
+	if model == 2 :
+#		cut1 = core.resize.Bilinear(clip=cut0, format=vs.GRAYH, matrix_in_s="709")
+#		cut2 = core.std.ShufflePlanes(clips=cut1, planes=0, colorfamily=vs.GRAY)
+		cut1 = core.std.ShufflePlanes(clips=cut0, planes=0, colorfamily=vs.GRAY)
+		cut2 = core.resize.Bilinear(clip=cut1, format=vs.GRAYH, matrix_in_s="709")
+	else :
+		cut2 = core.resize.Bilinear(clip=cut0, format=vs.RGBH, matrix_in_s="709")
+
+	fin = vsmlrt.DPIR(clip=cut2, strength=nr_lv, model=model, backend=vsmlrt.BackendV2.TRT(
+		num_streams=gpu_t, force_fp16=True, output_format=1,
+		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
+		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
+		device_id=gpu, short_path=True))
+
+	if model == 2 :
+		pre_mg = core.resize.Bilinear(clip=fin, format=fin.format.replace(bits_per_sample=fmt_bit_in, sample_type=0))
+#		pre_mg = core.resize.Bilinear(clip=fin, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
+		output = core.std.ShufflePlanes(clips=[pre_mg, cut0, cut0], planes=[0, 1, 2], colorfamily=fmt_cf_in)
+	else :
+		output = core.resize.Bilinear(clip=fin, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
+
+	if w_tmp + h_tmp > 0 :
+		output = core.std.Crop(clip=output, right=w_tmp, bottom=h_tmp)
 
 	return output
 
@@ -2825,7 +2933,6 @@ def DEINT_STD(
 def DEINT_EX(
 	input : vs.VideoNode,
 	fps_in : float = 23.976,
-	obs : bool = True,
 	deint_lv : typing.Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] = 6,
 	src_type : typing.Literal[0, 1, 2, 3] = 0,
 	deint_den : typing.Literal[1, 2] = 1,
@@ -2840,8 +2947,6 @@ def DEINT_EX(
 		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
 	if not isinstance(fps_in, (int, float)) or fps_in <= 0.0 :
 		raise vs.Error(f"模块 {func_name} 的子参数 fps_in 的值无效")
-	if not isinstance(obs, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 obs 的值无效")
 	if deint_lv not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] :
 		raise vs.Error(f"模块 {func_name} 的子参数 deint_lv 的值无效")
 	if src_type not in [0, 1, 2, 3] :
@@ -2865,114 +2970,10 @@ def DEINT_EX(
 			import qtgmc
 		except ImportError :
 			raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc")
-	if LooseVersion(qtgmc.__version__) < LooseVersion("0.2.0") :
-		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc 的版本号过低，至少 0.2.0")
+	if LooseVersion(qtgmc.__version__) < LooseVersion("0.3.0") :
+		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 qtgmc 的版本号过低，至少 0.3.0")
 
-	output = qtgmc.QTGMCv2(input=input, fps_in=fps_in, obs=obs, deint_lv=deint_lv, src_type=src_type, deint_den=deint_den, tff=tff, cpu=cpu, gpu=gpu)
-
-	return output
-
-##################################################
-## DPIR去块
-##################################################
-
-def DPIR_DBLK_NV(
-	input : vs.VideoNode,
-	lt_hd : bool = False,
-	model : typing.Literal[2, 3] = 2,
-	nr_lv : float = 50.0,
-	gpu : typing.Literal[0, 1, 2] = 0,
-	gpu_t : int = 2,
-	st_eng : bool = False,
-	ws_size : int = 0,
-	vs_t : int = vs_thd_dft,
-) -> vs.VideoNode :
-
-	func_name = "DPIR_DBLK_NV"
-	if not isinstance(input, vs.VideoNode) :
-		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
-	if not isinstance(lt_hd, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 lt_hd 的值无效")
-	if model not in [2, 3] :
-		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
-	if not isinstance(nr_lv, (int, float)) or nr_lv <= 0.0 :
-		raise vs.Error(f"模块 {func_name} 的子参数 nr_lv 的值无效")
-	if gpu not in [0, 1, 2] :
-		raise vs.Error(f"模块 {func_name} 的子参数 gpu 的值无效")
-	if not isinstance(gpu_t, int) or gpu_t <= 0 :
-		raise vs.Error(f"模块 {func_name} 的子参数 gpu_t 的值无效")
-	if not isinstance(st_eng, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 st_eng 的值无效")
-	if not isinstance(ws_size, int) or ws_size < 0 :
-		raise vs.Error(f"模块 {func_name} 的子参数 ws_size 的值无效")
-	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
-		raise vs.Error(f"模块 {func_name} 的子参数 vs_t 的值无效")
-
-	if not hasattr(core, "trt") :
-		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 trt")
-
-	plg_dir = os.path.dirname(core.trt.Version()["path"]).decode()
-	mdl_fname = ["drunet_deblocking_grayscale", "drunet_deblocking_color"][[2, 3].index(model)]
-	mdl_pth = plg_dir + "/models/dpir/" + mdl_fname + ".onnx"
-	if not os.path.exists(mdl_pth) :
-		raise vs.Error(f"模块 {func_name} 所请求的模型缺失")
-
-	global vsmlrt
-	if vsmlrt is None :
-		try :
-			import vsmlrt
-		except ImportError :
-			raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt")
-	if LooseVersion(vsmlrt.__version__) < LooseVersion("3.18.1") :
-		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt 的版本号过低，至少 3.18.1")
-
-	core.num_threads = vs_t
-	w_in, h_in = input.width, input.height
-	size_in = w_in * h_in
-	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
-	fmt_src = input.format
-	fmt_in = fmt_src.id
-	fmt_bit_in = fmt_src.bits_per_sample
-	fmt_cf_in = fmt_src.color_family
-
-	if (not lt_hd and (size_in > 1280 * 720)) or (size_in > 2048 * 1080) :
-		raise Exception("源分辨率超过限制的范围，已临时中止。")
-	if not st_eng and (((w_in > 2048) or (h_in > 1080)) or ((w_in < 64) or (h_in < 64))) :
-		raise Exception("源分辨率不属于动态引擎支持的范围，已临时中止。")
-
-	tile_size = 8
-	w_tmp = math.ceil(w_in / tile_size) * tile_size - w_in
-	h_tmp = math.ceil(h_in / tile_size) * tile_size - h_in
-	if w_tmp + h_tmp > 0 :
-		cut0 = core.std.AddBorders(clip=input, right=w_tmp, bottom=h_tmp)
-	else :
-		cut0 = input
-
-	if model == 2 :
-#		cut1 = core.resize.Bilinear(clip=cut0, format=vs.GRAYH, matrix_in_s="709")
-#		cut2 = core.std.ShufflePlanes(clips=cut1, planes=0, colorfamily=vs.GRAY)
-		cut1 = core.std.ShufflePlanes(clips=cut0, planes=0, colorfamily=vs.GRAY)
-		cut2 = core.resize.Bilinear(clip=cut1, format=vs.GRAYH, matrix_in_s="709")
-	else :
-		cut2 = core.resize.Bilinear(clip=cut0, format=vs.RGBH, matrix_in_s="709")
-
-	fin = vsmlrt.DPIR(clip=cut2, strength=nr_lv, model=model, backend=vsmlrt.BackendV2.TRT(
-		num_streams=gpu_t, force_fp16=True, output_format=1,
-		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
-		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
-		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
-		device_id=gpu, short_path=True))
-
-	if model == 2 :
-		pre_mg = core.resize.Bilinear(clip=fin, format=fin.format.replace(bits_per_sample=fmt_bit_in, sample_type=0))
-#		pre_mg = core.resize.Bilinear(clip=fin, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
-		output = core.std.ShufflePlanes(clips=[pre_mg, cut0, cut0], planes=[0, 1, 2], colorfamily=fmt_cf_in)
-	else :
-		output = core.resize.Bilinear(clip=fin, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
-
-	if w_tmp + h_tmp > 0 :
-		output = core.std.Crop(clip=output, right=w_tmp, bottom=h_tmp)
+	output = qtgmc.QTGMCv2(input=input, fps_in=fps_in, deint_lv=deint_lv, src_type=src_type, deint_den=deint_den, tff=tff, cpu=cpu, gpu=gpu)
 
 	return output
 
@@ -3272,7 +3273,8 @@ def UAI_NV_TRT(
 	model_pth : str = "",
 	opt_lv : typing.Literal[0, 1, 2, 3, 4, 5] = 3,
 	cuda_opt : typing.List[int] = [0, 0, 0],
-	fp16 : bool = False,
+	int8_qnt : bool = False,
+	fp16_qnt : bool = False,
 	gpu : typing.Literal[0, 1, 2] = 0,
 	gpu_t : int = 2,
 	st_eng : bool = False,
@@ -3293,8 +3295,10 @@ def UAI_NV_TRT(
 		raise vs.Error(f"模块 {func_name} 的子参数 opt_lv 的值无效")
 	if not (len(cuda_opt) == 3 and all(isinstance(num, int) and num in [0, 1] for num in cuda_opt)) :
 		raise vs.Error(f"模块 {func_name} 的子参数 cuda_opt 的值无效")
-	if not isinstance(fp16, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 fp16 的值无效")
+	if not isinstance(int8_qnt, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 int8_qnt 的值无效")
+	if not isinstance(fp16_qnt, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 fp16_qnt 的值无效")
 	if gpu not in [0, 1, 2] :
 		raise vs.Error(f"模块 {func_name} 的子参数 gpu 的值无效")
 	if not isinstance(gpu_t, int) or gpu_t <= 0 :
@@ -3339,14 +3343,16 @@ def UAI_NV_TRT(
 	fmt_in = input.format.id
 	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
 	nv1, nv2, nv3 = [bool(num) for num in cuda_opt]
+	if int8_qnt :
+		fp16_qnt = True
 
-	clip = core.resize.Bilinear(clip=input, format=vs.RGBH if fp16 else vs.RGBS, matrix_in_s="709")
+	clip = core.resize.Bilinear(clip=input, format=vs.RGBH if fp16_qnt else vs.RGBS, matrix_in_s="709")
 	if clamp :
 		clip = core.akarin.Expr(clips=clip, expr="x 0 1 clamp")
 	be_param = vsmlrt.BackendV2.TRT(
 		builder_optimization_level=opt_lv, short_path=True, device_id=gpu,
 		num_streams=gpu_t, use_cuda_graph=nv1, use_cublas=nv2, use_cudnn=nv3,
-		fp16=fp16, force_fp16=False, tf32=True, output_format=1 if fp16 else 0, workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
+		int8=int8_qnt, fp16=fp16_qnt, tf32=False if fp16_qnt else True, output_format=1 if fp16_qnt else 0, workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64], opt_shapes=None if st_eng else res_opt, max_shapes=None if st_eng else res_max)
 	infer = vsmlrt.inference(clips=clip, network_path=mdl_pth, backend=be_param)
 	output = core.resize.Bilinear(clip=infer, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
