@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.7.5"
+__version__ = "0.7.8"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -162,6 +162,7 @@ dfttest2 = None
 nnedi3_resample = None
 qtgmc = None
 vsmlrt = None
+onnx = None
 
 import typing
 import math
@@ -502,6 +503,40 @@ def RANGE_CHANGE(
 		output = core.std.Levels(clip=cut1, min_in=lv_val3, max_in=lv_val4, min_out=lv_val1, max_out=lv_val2_alt, planes=[1,2])
 
 	return output
+
+##################################################
+## 解析ONNX # helper
+##################################################
+
+def ONNX_ANZ(
+	input : str = "",
+	check_mdl : bool = True,
+) :
+
+	func_name = "ONNX_ANZ"
+	global onnx
+	if onnx is None :
+		try :
+			import onnx
+		except ImportError :
+			raise ImportError(f"模块 {func_name} 依赖错误：缺失库 onnx")
+	from onnx.checker import ValidationError
+
+	if check_mdl :
+		model_path = input
+		try:
+			onnx.checker.check_model(model_path)
+		except ValidationError as e:
+			print(f"模型无效，错误信息: {e}")
+		except Exception as e:
+			print(f"其他错误: {e}")
+
+		input_info = onnx.load(model_path).graph.input[0]
+		input_info = input_info.type.tensor_type
+		elem_type = input_info.elem_type  ## 10➡️FP16 或 1➡️FP32
+		#shape = input_info.shape[0]
+
+	return elem_type
 
 ##################################################
 ## MOD HAvsFunc (e1fcce2b4645ed4acde9192606d00bcac1b5c9e5)
@@ -1469,9 +1504,7 @@ def RIFE_DML(
 	input : vs.VideoNode,
 	lt_d2k : bool = False,
 	model : typing.Literal[46, 4251, 426, 4262] = 46,
-	fp16_qnt : bool = True,
-	ext_proc : bool = True,
-	t_tta : bool = False,
+	turbo : bool = True,
 	fps_in : float = 23.976,
 	fps_num : int = 2,
 	fps_den : int = 1,
@@ -1488,12 +1521,8 @@ def RIFE_DML(
 		raise vs.Error(f"模块 {func_name} 的子参数 lt_d2k 的值无效")
 	if model not in [46, 4251, 426, 4262] :
 		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
-	if not isinstance(fp16_qnt, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 fp16_qnt 的值无效")
-	if not isinstance(ext_proc, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 ext_proc 的值无效")
-	if not isinstance(t_tta, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 t_tta 的值无效")
+	if not isinstance(turbo, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 turbo 的值无效")
 	if not isinstance(fps_in, (int, float)) or fps_in <= 0.0 :
 		raise vs.Error(f"模块 {func_name} 的子参数 fps_in 的值无效")
 	if not isinstance(fps_num, int) or fps_num < 2 :
@@ -1509,8 +1538,8 @@ def RIFE_DML(
 	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
 		raise vs.Error(f"模块 {func_name} 的子参数 vs_t 的值无效")
 
-	if not hasattr(core, "trt") :
-		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 trt")
+	if not hasattr(core, "ort") :
+		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 ort")
 	if sc_mode == 1 :
 		if not hasattr(core, "misc") :
 			raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 misc")
@@ -1521,7 +1550,16 @@ def RIFE_DML(
 		if not hasattr(core, "akarin") :
 			raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 akarin")
 
-	plg_dir = os.path.dirname(core.trt.Version()["path"]).decode()
+	#ext_proc = True
+	#t_tta = False
+	if turbo :
+		ext_proc = False
+		t_tta = False
+	else :
+		ext_proc = True
+		t_tta = True
+
+	plg_dir = os.path.dirname(core.ort.Version()["path"]).decode()
 	mdl_pname = "rife/" if ext_proc else "rife_v2/"
 	if model in [4251, 426, 4262] :  ## https://github.com/AmusementClub/vs-mlrt/blob/2adfbab790eebe51c62c886400b0662570dfe3e9/scripts/vsmlrt.py#L1031-L1032
 		t_tta = False
@@ -1583,7 +1621,7 @@ def RIFE_DML(
 		if w_tmp + h_tmp > 0 :
 			cut1 = core.std.AddBorders(clip=cut1, right=w_tmp, bottom=h_tmp)
 		fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=t_tta, _implementation=1, video_player=True, backend=vsmlrt.BackendV2.ORT_DML(
-			num_streams=gpu_t, fp16=fp16_qnt, device_id=gpu))
+			num_streams=gpu_t, fp16=True, device_id=gpu))
 		if w_tmp + h_tmp > 0 :
 			fin = core.std.Crop(clip=fin, right=w_tmp, bottom=h_tmp)
 	else :
@@ -1604,8 +1642,7 @@ def RIFE_NV(
 	lt_d2k : bool = False,
 	model : typing.Literal[46, 4251, 426, 4262] = 46,
 	int8_qnt : bool = False,
-	ext_proc : bool = True,
-	t_tta : bool = False,
+	turbo : bool = True,
 	fps_in : float = 23.976,
 	fps_num : int = 2,
 	fps_den : int = 1,
@@ -1626,10 +1663,8 @@ def RIFE_NV(
 		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
 	if not isinstance(int8_qnt, bool) :
 		raise vs.Error(f"模块 {func_name} 的子参数 int8_qnt 的值无效")
-	if not isinstance(ext_proc, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 ext_proc 的值无效")
-	if not isinstance(t_tta, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 t_tta 的值无效")
+	if not isinstance(turbo, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 turbo 的值无效")
 	if not isinstance(fps_in, (int, float)) or fps_in <= 0.0 :
 		raise vs.Error(f"模块 {func_name} 的子参数 fps_in 的值无效")
 	if not isinstance(fps_num, int) or fps_num < 2 :
@@ -1660,6 +1695,15 @@ def RIFE_NV(
 	if not (fps_num/fps_den).is_integer() :
 		if not hasattr(core, "akarin") :
 			raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 akarin")
+
+	#ext_proc = True
+	#t_tta = False
+	if turbo :
+		ext_proc = False
+		t_tta = False
+	else :
+		ext_proc = True
+		t_tta = True
 
 	plg_dir = os.path.dirname(core.trt.Version()["path"]).decode()
 	mdl_pname = "rife/" if ext_proc else "rife_v2/"
@@ -3201,7 +3245,6 @@ def UAI_DML(
 	input : vs.VideoNode,
 	clamp : bool = False,
 	model_pth : str = "",
-	fp16_mdl : bool = True,
 	fp16_qnt : bool = True,
 	gpu : typing.Literal[0, 1, 2] = 0,
 	gpu_t : int = 2,
@@ -3215,8 +3258,6 @@ def UAI_DML(
 		raise vs.Error(f"模块 {func_name} 的子参数 clamp 的值无效")
 	if len(model_pth) <= 5 :
 		raise vs.Error(f"模块 {func_name} 的子参数 model_pth 的值无效")
-	if not isinstance(fp16_mdl, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 fp16_mdl 的值无效")
 	if not isinstance(fp16_qnt, bool) :
 		raise vs.Error(f"模块 {func_name} 的子参数 fp16_qnt 的值无效")
 	if gpu not in [0, 1, 2] :
@@ -3251,6 +3292,14 @@ def UAI_DML(
 	fmt_in = input.format.id
 	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
 
+	fp16_mdl = None
+	check_mdl = ONNX_ANZ(input=mdl_pth)
+	if check_mdl == 1 :
+		fp16_mdl = False
+	elif check_mdl == 10 :
+		fp16_mdl = True
+	else :
+		raise vs.Error(f"模块 {func_name} 的输入模型的输入精度不受支持")
 	if fp16_mdl :
 		fp16_qnt = False
 
