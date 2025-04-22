@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.7.8"
+__version__ = "0.7.11"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -658,7 +658,7 @@ def ACNET_STD(
 	return output
 
 ##################################################
-## ArtCNN放大
+## ArtCNN放大 TensorRT
 ##################################################
 
 def ARTCNN_NV(
@@ -726,7 +726,7 @@ def ARTCNN_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 	cut1_uv = core.resize.Bilinear(clip=cut0, width=cut1_y.width, height=cut1_y.height)
@@ -805,7 +805,7 @@ def CUGAN_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 	output = core.resize.Bilinear(clip=cut2, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
@@ -1010,7 +1010,7 @@ def ESRGAN_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 	output = core.resize.Bilinear(clip=cut2, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
@@ -1188,7 +1188,7 @@ def WAIFU_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 	output = core.resize.Bilinear(clip=cut2, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
@@ -1422,7 +1422,7 @@ def MVT_MQ(
 	return output
 
 ##################################################
-## RIFE补帧
+## RIFE补帧 Vulkan
 ##################################################
 
 def RIFE_STD(
@@ -1497,12 +1497,11 @@ def RIFE_STD(
 	return output
 
 ##################################################
-## RIFE补帧
+## RIFE补帧 DirectML
 ##################################################
 
 def RIFE_DML(
 	input : vs.VideoNode,
-	lt_d2k : bool = False,
 	model : typing.Literal[46, 4251, 426, 4262] = 46,
 	turbo : bool = True,
 	fps_in : float = 23.976,
@@ -1517,8 +1516,6 @@ def RIFE_DML(
 	func_name = "RIFE_DML"
 	if not isinstance(input, vs.VideoNode) :
 		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
-	if not isinstance(lt_d2k, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 lt_d2k 的值无效")
 	if model not in [46, 4251, 426, 4262] :
 		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
 	if not isinstance(turbo, bool) :
@@ -1587,11 +1584,11 @@ def RIFE_DML(
 	fmt_in = input.format.id
 	fps_factor = fps_num/fps_den
 
-	if (not lt_d2k and (size_in > 2048 * 1088)) or (size_in > 4096 * 2176) :
+	if (size_in > 4096 * 2176) :
 		raise Exception("源分辨率超过限制的范围，已临时中止。")
 
 	scale_model = 1
-	if lt_d2k and (size_in > 2048 * 1088) :
+	if (size_in > 2048 * 1088) :
 		scale_model = 0.5
 		if not ext_proc :  ## https://github.com/AmusementClub/vs-mlrt/blob/abc5b1c777a5dde6bad51a099f28eba99375ef4e/scripts/vsmlrt.py#L1002
 			scale_model = 1
@@ -1634,12 +1631,11 @@ def RIFE_DML(
 	return output
 
 ##################################################
-## RIFE补帧
+## RIFE补帧 TensorRT
 ##################################################
 
 def RIFE_NV(
 	input : vs.VideoNode,
-	lt_d2k : bool = False,
 	model : typing.Literal[46, 4251, 426, 4262] = 46,
 	int8_qnt : bool = False,
 	turbo : bool = True,
@@ -1649,7 +1645,6 @@ def RIFE_NV(
 	sc_mode : typing.Literal[0, 1, 2] = 1,
 	gpu : typing.Literal[0, 1, 2] = 0,
 	gpu_t : int = 2,
-	st_eng : bool = False,
 	ws_size : int = 0,
 	vs_t : int = vs_thd_dft,
 ) -> vs.VideoNode :
@@ -1657,8 +1652,6 @@ def RIFE_NV(
 	func_name = "RIFE_NV"
 	if not isinstance(input, vs.VideoNode) :
 		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
-	if not isinstance(lt_d2k, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 lt_d2k 的值无效")
 	if model not in [46, 4251, 426, 4262] :
 		raise vs.Error(f"模块 {func_name} 的子参数 model 的值无效")
 	if not isinstance(int8_qnt, bool) :
@@ -1677,8 +1670,6 @@ def RIFE_NV(
 		raise vs.Error(f"模块 {func_name} 的子参数 gpu 的值无效")
 	if not isinstance(gpu_t, int) or gpu_t <= 0 :
 		raise vs.Error(f"模块 {func_name} 的子参数 gpu_t 的值无效")
-	if not isinstance(st_eng, bool) :
-		raise vs.Error(f"模块 {func_name} 的子参数 st_eng 的值无效")
 	if not isinstance(ws_size, int) or ws_size < 0 :
 		raise vs.Error(f"模块 {func_name} 的子参数 ws_size 的值无效")
 	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
@@ -1733,15 +1724,16 @@ def RIFE_NV(
 	fmt_in = input.format.id
 	fps_factor = fps_num/fps_den
 
+	st_eng = False
 	if not ext_proc and model >= 47 : # https://github.com/AmusementClub/vs-mlrt/issues/72
 		st_eng = True
-	if (not lt_d2k and (size_in > 2048 * 1088)) or (size_in > 4096 * 2176) :
+	if (size_in > 4096 * 2176) :
 		raise Exception("源分辨率超过限制的范围，已临时中止。")
 	if not st_eng and (((w_in > 4096) or (h_in > 2176)) or ((w_in < 384) or (h_in < 384))) :
 		raise Exception("源分辨率不属于动态引擎支持的范围，已临时中止。")
 
 	scale_model = 1
-	if lt_d2k and st_eng and (size_in > 2048 * 1088) :
+	if st_eng and (size_in > 2048 * 1088) :
 		scale_model = 0.5
 		if not ext_proc :  ## https://github.com/AmusementClub/vs-mlrt/blob/abc5b1c777a5dde6bad51a099f28eba99375ef4e/scripts/vsmlrt.py#L1002
 			scale_model = 1
@@ -1757,16 +1749,15 @@ def RIFE_NV(
 	w_tmp = math.ceil(w_in / tile_size) * tile_size - w_in
 	h_tmp = math.ceil(h_in / tile_size) * tile_size - h_in
 
-	shape_config = {
+	shape_list = {
 		32: {"min": (10, 8), "opt": (60, 34), "max1": (128, 68), "max2": (64, 34)},
 		64: {"min": (5, 4), "opt": (30, 17), "max1": (64, 34), "max2": (32, 17)},
-		128: {"min": (3, 2), "opt": (15, 9), "max1": (32, 17), "max2": (16, 9)},
-	}
-	cfg = shape_config[tile_size]
-	min_shapes = [tile_size * x for x in cfg["min"]]
-	opt_shapes = [tile_size * x for x in cfg["opt"]]
-	max_shapes = [tile_size * x for x in cfg["max1"]]
-	max_shapes2 = [tile_size * x for x in cfg["max2"]]
+		128: {"min": (3, 2), "opt": (15, 9), "max1": (32, 17), "max2": (16, 9)},}
+	shape_cfg = shape_list[tile_size]
+	min_shapes = [tile_size * x for x in shape_cfg["min"]]
+	opt_shapes = [tile_size * x for x in shape_cfg["opt"]]
+	max_shapes1 = [tile_size * x for x in shape_cfg["max1"]]
+	max_shapes2 = [tile_size * x for x in shape_cfg["max2"]]
 
 	if sc_mode == 0 :
 		cut0 = input
@@ -1786,7 +1777,7 @@ def RIFE_NV(
 			workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 			use_cuda_graph=True, use_cublas=False, use_cudnn=False,
 			static_shape=st_eng, min_shapes=[0, 0] if st_eng else min_shapes,
-			opt_shapes=None if st_eng else opt_shapes, max_shapes=None if st_eng else (max_shapes if lt_d2k else max_shapes2),
+			opt_shapes=None if st_eng else opt_shapes, max_shapes=None if st_eng else (max_shapes1 if (size_in > 2048 * 1088) else max_shapes2),
 			device_id=gpu, short_path=True))
 		if w_tmp + h_tmp > 0 :
 			fin = core.std.Crop(clip=fin, right=w_tmp, bottom=h_tmp)
@@ -2139,7 +2130,7 @@ def DPIR_DBLK_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 
@@ -2509,7 +2500,7 @@ def DPIR_NR_NV(
 		num_streams=gpu_t, force_fp16=True, output_format=1,
 		workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
 		use_cuda_graph=True, use_cublas=False, use_cudnn=False,
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64],
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384],
 		opt_shapes=None if st_eng else ([1920, 1080] if lt_hd else [1280, 720]), max_shapes=None if st_eng else ([2048, 1080] if lt_hd else [1280, 720]),
 		device_id=gpu, short_path=True))
 
@@ -3402,7 +3393,7 @@ def UAI_NV_TRT(
 		builder_optimization_level=opt_lv, short_path=True, device_id=gpu,
 		num_streams=gpu_t, use_cuda_graph=nv1, use_cublas=nv2, use_cudnn=nv3,
 		int8=int8_qnt, fp16=fp16_qnt, tf32=False if fp16_qnt else True, output_format=1 if fp16_qnt else 0, workspace=None if ws_size < 128 else (ws_size if st_eng else ws_size * 2),
-		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [64, 64], opt_shapes=None if st_eng else res_opt, max_shapes=None if st_eng else res_max)
+		static_shape=st_eng, min_shapes=[0, 0] if st_eng else [384, 384], opt_shapes=None if st_eng else res_opt, max_shapes=None if st_eng else res_max)
 	infer = vsmlrt.inference(clips=clip, network_path=mdl_pth, backend=be_param)
 	output = core.resize.Bilinear(clip=infer, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
 

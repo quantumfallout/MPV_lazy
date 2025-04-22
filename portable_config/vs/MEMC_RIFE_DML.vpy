@@ -12,7 +12,6 @@ clip = video_in
 ############
 
 H_Pre = 1440
-Lt_D2k = False
 Model = 46
 Fps_Num = 2
 Fps_Den = 1
@@ -21,7 +20,6 @@ Gpu = 0
 Gpu_T = 2
 Lk_Fmt = False
 ## 整数，预降低处理源高度（填你的显示器高度）
-## <True|False> 是否对超过DCI2K分辨率的源进行补帧
 ## <46|4251|426|4262> 使用的模型
 ## 整数，Fps_Num/Fps_Den 的值即帧率倍数
 ## 整数
@@ -32,6 +30,6 @@ Lk_Fmt = False
 
 ret = k7f.FPS_CTRL(clip, fps_in=container_fps, fps_ret=True)
 clip = k7f.FMT_CTRL(clip, h_max=H_Pre, fmt_pix=1 if Lk_Fmt else 0)
-clip = k7f.RIFE_DML(clip, lt_d2k=Lt_D2k, model=Model, turbo=True, fps_in=container_fps, fps_num=Fps_Num, fps_den=Fps_Den, sc_mode=Sc_Mode, gpu=Gpu, gpu_t=Gpu_T)
+clip = k7f.RIFE_DML(clip, model=Model, turbo=True, fps_in=container_fps, fps_num=Fps_Num, fps_den=Fps_Den, sc_mode=Sc_Mode, gpu=Gpu, gpu_t=Gpu_T)
 
 clip.set_output()
