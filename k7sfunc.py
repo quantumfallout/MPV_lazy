@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.7.11"
+__version__ = "0.8.1"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -10,7 +10,7 @@ __all__ = [
 	"MVT_LQ", "MVT_STD", "MVT_POT", "MVT_MQ", "RIFE_STD", "RIFE_DML", "RIFE_NV", "SVP_LQ", "SVP_STD", "SVP_HQ", "SVP_PRO",
 	"DPIR_DBLK_NV", "BILA_NV", "BM3D_NV", "CCD_STD", "DFTT_STD", "DFTT_NV", "DPIR_NR_NV", "FFT3D_STD", "NLM_STD", "NLM_NV",
 	"COLOR_P3W_FIX", "CSC_RB", "DEBAND_STD", "DEINT_LQ", "DEINT_STD", "DEINT_EX", "EDI_AA_STD", "EDI_AA_NV", "IVTC_STD", "STAB_STD", "STAB_HQ",
-	"UAI_DML", "UAI_NV_TRT", "UVR_MAD",
+	"UAI_DML", "UAI_MIGX", "UAI_NV_TRT", "UVR_MAD",
 ]
 
 ##################################################
@@ -3292,12 +3292,92 @@ def UAI_DML(
 	else :
 		raise vs.Error(f"模块 {func_name} 的输入模型的输入精度不受支持")
 	if fp16_mdl :
-		fp16_qnt = False
+		fp16_qnt = False   ### ort对于fp16模型自动使用对应的IO
 
 	clip = core.resize.Bilinear(clip=input, format=vs.RGBH if fp16_mdl else vs.RGBS, matrix_in_s="709")
 	if clamp :
 		clip = core.akarin.Expr(clips=clip, expr="x 0 1 clamp")
 	be_param = vsmlrt.BackendV2.ORT_DML(device_id=gpu, num_streams=gpu_t, fp16=fp16_qnt)
+	infer = vsmlrt.inference(clips=clip, network_path=mdl_pth, backend=be_param)
+	output = core.resize.Bilinear(clip=infer, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
+
+	return output
+
+##################################################
+## 自定义ONNX模型（仅支持放大类）
+##################################################
+
+def UAI_MIGX(
+	input : vs.VideoNode,
+	clamp : bool = False,
+	model_pth : str = "",
+	fp16_qnt : bool = True,
+	exh_tune : bool = False,
+	gpu : typing.Literal[0, 1, 2] = 0,
+	gpu_t : int = 2,
+	vs_t : int = vs_thd_dft,
+) -> vs.VideoNode :
+
+	func_name = "UAI_MIGX"
+	if not isinstance(input, vs.VideoNode) :
+		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
+	if not isinstance(clamp, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 clamp 的值无效")
+	if len(model_pth) <= 5 :
+		raise vs.Error(f"模块 {func_name} 的子参数 model_pth 的值无效")
+	if not isinstance(fp16_qnt, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 fp16_qnt 的值无效")
+	if not isinstance(exh_tune, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 exh_tune 的值无效")
+	if gpu not in [0, 1, 2] :
+		raise vs.Error(f"模块 {func_name} 的子参数 gpu 的值无效")
+	if not isinstance(gpu_t, int) or gpu_t <= 0 :
+		raise vs.Error(f"模块 {func_name} 的子参数 gpu_t 的值无效")
+	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
+		raise vs.Error(f"模块 {func_name} 的子参数 vs_t 的值无效")
+
+	if not hasattr(core, "ort") :
+		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 ort")
+	if clamp :
+		if not hasattr(core, "akarin") :
+			raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 akarin")
+
+	plg_dir = os.path.dirname(core.ort.Version()["path"]).decode()
+	mdl_pth_rel = plg_dir + "/models/" + model_pth
+	if not os.path.exists(mdl_pth_rel) and not os.path.exists(model_pth) :
+		raise vs.Error(f"模块 {func_name} 所请求的模型缺失")
+	mdl_pth = mdl_pth_rel if os.path.exists(mdl_pth_rel) else model_pth
+
+	global vsmlrt
+	if vsmlrt is None :
+		try :
+			import vsmlrt
+		except ImportError :
+			raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt")
+	if LooseVersion(vsmlrt.__version__) < LooseVersion("3.15.25") :
+		raise ImportError(f"模块 {func_name} 依赖错误：缺失脚本 vsmlrt 的版本号过低，至少 3.15.25")
+
+	core.num_threads = vs_t
+	fmt_in = input.format.id
+	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
+
+	fp16_mdl = None
+	check_mdl = ONNX_ANZ(input=mdl_pth)
+	if check_mdl == 1 :
+		fp16_mdl = False
+	elif check_mdl == 10 :
+		fp16_mdl = True
+	else :
+		raise vs.Error(f"模块 {func_name} 的输入模型的输入精度不受支持")
+	if fp16_mdl :
+		fp16_qnt = True   ### 量化精度与模型精度匹配
+
+	clip = core.resize.Bilinear(clip=input, format=vs.RGBH if fp16_qnt else vs.RGBS, matrix_in_s="709")
+	if clamp :
+		clip = core.akarin.Expr(clips=clip, expr="x 0 1 clamp")
+	be_param = vsmlrt.BackendV2.MIGX(
+		fp16=fp16_qnt, exhaustive_tune=exh_tune, opt_shapes=[clip.width, clip.height],
+		device_id=gpu, num_streams=gpu_t, short_path=True)
 	infer = vsmlrt.inference(clips=clip, network_path=mdl_pth, backend=be_param)
 	output = core.resize.Bilinear(clip=infer, format=fmt_in, matrix_s="709", range=1 if colorlv==0 else None)
 
@@ -3314,7 +3394,7 @@ def UAI_NV_TRT(
 	opt_lv : typing.Literal[0, 1, 2, 3, 4, 5] = 3,
 	cuda_opt : typing.List[int] = [0, 0, 0],
 	int8_qnt : bool = False,
-	fp16_qnt : bool = False,
+	fp16_qnt : bool = True,
 	gpu : typing.Literal[0, 1, 2] = 0,
 	gpu_t : int = 2,
 	st_eng : bool = False,
@@ -3382,6 +3462,18 @@ def UAI_NV_TRT(
 	core.num_threads = vs_t
 	fmt_in = input.format.id
 	colorlv = getattr(input.get_frame(0).props, "_ColorRange", 0)
+
+	fp16_mdl = None
+	check_mdl = ONNX_ANZ(input=mdl_pth)
+	if check_mdl == 1 :
+		fp16_mdl = False
+	elif check_mdl == 10 :
+		fp16_mdl = True
+	else :
+		raise vs.Error(f"模块 {func_name} 的输入模型的输入精度不受支持")
+	if fp16_mdl :
+		fp16_qnt = True   ### 量化精度与模型精度匹配
+
 	nv1, nv2, nv3 = [bool(num) for num in cuda_opt]
 	if int8_qnt :
 		fp16_qnt = True
