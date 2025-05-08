@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.8.1"
+__version__ = "0.8.2"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
@@ -3336,13 +3336,13 @@ def UAI_MIGX(
 	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
 		raise vs.Error(f"模块 {func_name} 的子参数 vs_t 的值无效")
 
-	if not hasattr(core, "ort") :
-		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 ort")
+	if not hasattr(core, "migx") :
+		raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 migx")
 	if clamp :
 		if not hasattr(core, "akarin") :
 			raise ModuleNotFoundError(f"模块 {func_name} 依赖错误：缺失插件，检查项目 akarin")
 
-	plg_dir = os.path.dirname(core.ort.Version()["path"]).decode()
+	plg_dir = os.path.dirname(core.migx.Version()["path"]).decode()
 	mdl_pth_rel = plg_dir + "/models/" + model_pth
 	if not os.path.exists(mdl_pth_rel) and not os.path.exists(model_pth) :
 		raise vs.Error(f"模块 {func_name} 所请求的模型缺失")
