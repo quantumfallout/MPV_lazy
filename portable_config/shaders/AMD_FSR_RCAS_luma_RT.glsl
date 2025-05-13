@@ -38,13 +38,15 @@
 0.2
 
 //!PARAM NR
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 1
 
 //!PARAM PQ
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0

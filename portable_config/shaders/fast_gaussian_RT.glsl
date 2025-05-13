@@ -1,14 +1,14 @@
 
 // Maximum resolution
 //!PARAM res
-//!TYPE DEFINE
+//!TYPE int
 //!MINIMUM 64
 //!MAXIMUM 4096
 1024
 
 // Number of blur passes
 //!PARAM passes
-//!TYPE DEFINE
+//!TYPE int
 //!MINIMUM 0
 //!MAXIMUM 8
 2

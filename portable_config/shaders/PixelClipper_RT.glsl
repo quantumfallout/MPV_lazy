@@ -21,13 +21,15 @@
 // SOFTWARE.
 
 //!PARAM TAPS_scale
-//!TYPE int
+//!DESC int
+//!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM TAPS_cscale
-//!TYPE int
+//!DESC int
+//!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
 0

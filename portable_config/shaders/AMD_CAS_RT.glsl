@@ -39,7 +39,8 @@
 // directives with "OUTPUT.w OUTPUT.h * LUMA.w LUMA.h * / 1.0 < !" which allows it to be used as a pre-upscale sharpener.
 
 //!PARAM TRC
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 6
 4
@@ -56,19 +57,22 @@
 0.0
 
 //!PARAM SLOW
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 1
 
 //!PARAM SLOW2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM TRC2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 6
 4

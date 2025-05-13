@@ -38,7 +38,8 @@
 // colorspace values, and apply them via autoprofiles. Note that running in non-linear light will result in oversharpening.
 
 //!PARAM TRC
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 6
 4
@@ -55,19 +56,22 @@
 0.0
 
 //!PARAM SLOW
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 1
 
 //!PARAM SLOW2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM TRC2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 6
 4

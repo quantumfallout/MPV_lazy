@@ -18,7 +18,8 @@
 // Mod of AMD_CAS_scaled.glsl
 
 //!PARAM TRC
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 5
 4
@@ -36,31 +37,36 @@
 0.0
 
 //!PARAM SLOW
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 1
 
 //!PARAM SLOW2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM SLOW3
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM ALPHA
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM TRC2
-//!TYPE int
+//!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 5
 4

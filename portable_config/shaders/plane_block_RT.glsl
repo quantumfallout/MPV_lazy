@@ -1,23 +1,26 @@
 
 //!PARAM bY
-//!TYPE DEFINE
+//!TYPE int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM bY_mode
+//!DESC int
 //!TYPE DEFINE
 //!MINIMUM 1
 //!MAXIMUM 3
 1
 
 //!PARAM bU
+//!DESC int
 //!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
 1
 
 //!PARAM bV
+//!DESC int
 //!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
@@ -32,11 +35,9 @@ vec4 hook() {
 	vec4 color = HOOKED_texOff(0.0);
 #if (bY_mode == 1)
 	color.x = 0.0;
-#endif
-#if (bY_mode == 2)
+#elif (bY_mode == 2)
 	color.x = 0.5;
-#endif
-#if (bY_mode == 3)
+#elif (bY_mode == 3)
 	color.x = 1.0;
 #endif
 	return color;
