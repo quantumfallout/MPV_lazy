@@ -3,7 +3,7 @@
 //!TYPE float
 //!MINIMUM -1.0
 //!MAXIMUM 1.0
--0.1106
+0.0
 
 //!PARAM Gp
 //!TYPE float
@@ -15,11 +15,13 @@
 //!TYPE float
 //!MINIMUM -1.0
 //!MAXIMUM 1.0
-0.0591
+0.0
+
 
 //!DESC [eq_rgb_RT]
 //!HOOK MAIN
 //!BIND HOOKED
+//!WHEN Rp 0.0 == ! Gp 0.0 == ! + Bp 0.0 == ! +
 
 vec4 hook() {
 
