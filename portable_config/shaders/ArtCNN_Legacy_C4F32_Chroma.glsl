@@ -26,6 +26,7 @@
 //!WIDTH CHROMA.w 2.0 *
 //!HEIGHT CHROMA.h 2.0 *
 //!OFFSET ALIGN
+//!WHEN CHROMA.w LUMA.w <
 vec4 hook() {
     return CHROMA_texOff(0.0);
 }

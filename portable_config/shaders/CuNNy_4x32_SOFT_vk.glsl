@@ -16,7 +16,7 @@
 /* ------------------------------------------------------------------- */
 
 
-//!DESC CuNNy-4x32-SOFT-in
+//!DESC [CuNNy_4x32_SOFT_vk] -in
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND LUMA
@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -158,7 +158,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-4x32-SOFT-conv1
+//!DESC [CuNNy_4x32_SOFT_vk] -conv1
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND in
@@ -167,7 +167,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -857,7 +857,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), f7);
 }
 
-//!DESC CuNNy-4x32-SOFT-conv2
+//!DESC [CuNNy_4x32_SOFT_vk] -conv2
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv1
@@ -866,7 +866,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -1556,7 +1556,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), f7);
 }
 
-//!DESC CuNNy-4x32-SOFT-conv3
+//!DESC [CuNNy_4x32_SOFT_vk] -conv3
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv2
@@ -1565,7 +1565,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -2255,7 +2255,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), f7);
 }
 
-//!DESC CuNNy-4x32-SOFT-conv4
+//!DESC [CuNNy_4x32_SOFT_vk] -conv4
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv3
@@ -2264,7 +2264,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 spirv_instruction (extensions = ["SPV_KHR_integer_dot_product"], capabilities = [6019, 6018], id = 4450)
 int dp4(int a, int b, spirv_literal int fmt);
@@ -2954,7 +2954,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), f7);
 }
 
-//!DESC CuNNy-4x32-SOFT-out-shuffle
+//!DESC [CuNNy_4x32_SOFT_vk] -out-shuffle
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv4
@@ -2962,7 +2962,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4

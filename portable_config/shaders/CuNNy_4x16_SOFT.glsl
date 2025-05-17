@@ -16,7 +16,7 @@
 /* ------------------------------------------------------------------- */
 
 
-//!DESC CuNNy-4x16-SOFT-in
+//!DESC [CuNNy_4x16_SOFT] -in
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND LUMA
@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -110,7 +110,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(1, 1), vec4(r3));
 }
 
-//!DESC CuNNy-4x16-SOFT-conv1
+//!DESC [CuNNy_4x16_SOFT] -conv1
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND in
@@ -119,7 +119,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -330,7 +330,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(1, 1), vec4(r3));
 }
 
-//!DESC CuNNy-4x16-SOFT-conv2
+//!DESC [CuNNy_4x16_SOFT] -conv2
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv1
@@ -339,7 +339,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -550,7 +550,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(1, 1), vec4(r3));
 }
 
-//!DESC CuNNy-4x16-SOFT-conv3
+//!DESC [CuNNy_4x16_SOFT] -conv3
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv2
@@ -559,7 +559,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -770,7 +770,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(1, 1), vec4(r3));
 }
 
-//!DESC CuNNy-4x16-SOFT-conv4
+//!DESC [CuNNy_4x16_SOFT] -conv4
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv3
@@ -779,7 +779,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -990,7 +990,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(1, 1), vec4(r3));
 }
 
-//!DESC CuNNy-4x16-SOFT-out-shuffle
+//!DESC [CuNNy_4x16_SOFT] -out-shuffle
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv4
@@ -998,7 +998,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4

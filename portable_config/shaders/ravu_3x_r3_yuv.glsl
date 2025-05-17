@@ -18,7 +18,7 @@
 //!BIND ravu_3x_lut3
 //!WIDTH 3 HOOKED.w *
 //!HEIGHT 3 HOOKED.h *
-//!WHEN HOOKED.w OUTPUT.w / 0.454545 < HOOKED.h OUTPUT.h / 0.454545 < * LUMA.w 0 > *
+//!WHEN OUTPUT.w HOOKED.w 2.200 * > OUTPUT.h HOOKED.h 2.200 * > * LUMA.w 0 > *
 //!COMPUTE 96 24 32 8
 shared vec3 inp[432];
 shared float inp_luma[432];

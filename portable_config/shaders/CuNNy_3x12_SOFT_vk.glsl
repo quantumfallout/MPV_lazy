@@ -16,7 +16,7 @@
 /* ------------------------------------------------------------------- */
 
 
-//!DESC CuNNy-3x12-SOFT-in
+//!DESC [CuNNy_3x12_SOFT_vk] -in
 //!HOOK LUMA
 //!COMPUTE 24 8 8 8
 //!BIND LUMA
@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -98,7 +98,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(2, 0), vec4(r2));
 }
 
-//!DESC CuNNy-3x12-SOFT-conv1
+//!DESC [CuNNy_3x12_SOFT_vk] -conv1
 //!HOOK LUMA
 //!COMPUTE 24 8 8 8
 //!BIND in
@@ -107,7 +107,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (in_mul * texelFetch(in_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(0, 0), 0))
 #define l1(x, y) (in_mul * texelFetch(in_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(1, 0), 0))
@@ -246,7 +246,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(2, 0), f2);
 }
 
-//!DESC CuNNy-3x12-SOFT-conv2
+//!DESC [CuNNy_3x12_SOFT_vk] -conv2
 //!HOOK LUMA
 //!COMPUTE 24 8 8 8
 //!BIND conv1
@@ -255,7 +255,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (conv1_mul * texelFetch(conv1_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(0, 0), 0))
 #define l1(x, y) (conv1_mul * texelFetch(conv1_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(1, 0), 0))
@@ -394,7 +394,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(2, 0), f2);
 }
 
-//!DESC CuNNy-3x12-SOFT-conv3
+//!DESC [CuNNy_3x12_SOFT_vk] -conv3
 //!HOOK LUMA
 //!COMPUTE 24 8 8 8
 //!BIND conv2
@@ -403,7 +403,7 @@ void hook() {
 //!WIDTH LUMA.w 3 *
 //!HEIGHT LUMA.h
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_spirv_intrinsics : require
 #define l0(x, y) (conv2_mul * texelFetch(conv2_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(0, 0), 0))
 #define l1(x, y) (conv2_mul * texelFetch(conv2_raw, clamp(pos + ivec2(x, y), ivec2(0), sz) * ivec2(3, 1) + ivec2(1, 0), 0))
@@ -542,7 +542,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(2, 0), f2);
 }
 
-//!DESC CuNNy-3x12-SOFT-out-shuffle
+//!DESC [CuNNy_3x12_SOFT_vk] -out-shuffle
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv3
@@ -550,7 +550,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4

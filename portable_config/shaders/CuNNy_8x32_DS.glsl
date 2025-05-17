@@ -16,7 +16,7 @@
 /* ------------------------------------------------------------------- */
 
 
-//!DESC CuNNy-8x32-DS-in
+//!DESC [CuNNy_8x32_DS] -in
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND LUMA
@@ -24,7 +24,7 @@
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -158,7 +158,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv1
+//!DESC [CuNNy_8x32_DS] -conv1
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND in
@@ -167,7 +167,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -853,7 +853,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv2
+//!DESC [CuNNy_8x32_DS] -conv2
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv1
@@ -862,7 +862,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -1548,7 +1548,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv3
+//!DESC [CuNNy_8x32_DS] -conv3
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv2
@@ -1557,7 +1557,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -2243,7 +2243,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv4
+//!DESC [CuNNy_8x32_DS] -conv4
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv3
@@ -2252,7 +2252,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -2938,7 +2938,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv5
+//!DESC [CuNNy_8x32_DS] -conv5
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv4
@@ -2947,7 +2947,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -3633,7 +3633,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv6
+//!DESC [CuNNy_8x32_DS] -conv6
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv5
@@ -3642,7 +3642,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -4328,7 +4328,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv7
+//!DESC [CuNNy_8x32_DS] -conv7
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv6
@@ -4337,7 +4337,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -5023,7 +5023,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-conv8
+//!DESC [CuNNy_8x32_DS] -conv8
 //!HOOK LUMA
 //!COMPUTE 32 16 8 8
 //!BIND conv7
@@ -5032,7 +5032,7 @@ void hook() {
 //!WIDTH LUMA.w 4 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 4
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4
@@ -5718,7 +5718,7 @@ void hook() {
 	imageStore(out_image, opos + ivec2(3, 1), vec4(r7));
 }
 
-//!DESC CuNNy-8x32-DS-out-shuffle
+//!DESC [CuNNy_8x32_DS] -out-shuffle
 //!HOOK LUMA
 //!COMPUTE 16 16 8 8
 //!BIND conv8
@@ -5726,7 +5726,7 @@ void hook() {
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!COMPONENTS 1
-//!WHEN OUTPUT.w LUMA.w / 1.2 > OUTPUT.h LUMA.h / 1.2 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 #extension GL_EXT_shader_explicit_arithmetic_types_float16 : enable
 #ifdef GL_EXT_shader_explicit_arithmetic_types_float16
 #	define V4 f16vec4

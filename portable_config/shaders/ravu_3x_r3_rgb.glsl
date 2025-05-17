@@ -18,7 +18,7 @@
 //!BIND ravu_3x_lut3
 //!WIDTH 3 HOOKED.w *
 //!HEIGHT 3 HOOKED.h *
-//!WHEN HOOKED.w OUTPUT.w / 0.454545 < HOOKED.h OUTPUT.h / 0.454545 < *
+//!WHEN OUTPUT.w HOOKED.w 2.200 * > OUTPUT.h HOOKED.h 2.200 * > *
 //!COMPUTE 96 24 32 8
 const vec3 color_primary = vec3(0.2126, 0.7152, 0.0722);
 shared vec3 inp[432];

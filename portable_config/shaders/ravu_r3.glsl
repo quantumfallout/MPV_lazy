@@ -17,7 +17,7 @@
 //!BIND HOOKED
 //!BIND ravu_lut3
 //!SAVE ravu_int11
-//!WHEN HOOKED.w OUTPUT.w / 0.833333 < HOOKED.h OUTPUT.h / 0.833333 < *
+//!WHEN OUTPUT.w HOOKED.w 1.200 * > OUTPUT.h HOOKED.h 1.200 * > *
 //!COMPUTE 32 8
 shared float inp0[481];
 void hook() {
@@ -160,7 +160,7 @@ imageStore(out_image, ivec2(gl_GlobalInvocationID), vec4(res, 0.0, 0.0, 0.0));
 //!WIDTH 2 HOOKED.w *
 //!HEIGHT 2 HOOKED.h *
 //!OFFSET -0.500000 -0.500000
-//!WHEN HOOKED.w OUTPUT.w / 0.833333 < HOOKED.h OUTPUT.h / 0.833333 < *
+//!WHEN OUTPUT.w HOOKED.w 1.200 * > OUTPUT.h HOOKED.h 1.200 * > *
 //!COMPUTE 64 16 32 8
 shared float inp0[481];
 shared float inp1[481];

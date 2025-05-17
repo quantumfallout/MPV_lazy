@@ -1,5 +1,5 @@
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 1
 //!BIND LUMA
 //!SAVE FEATURE1
@@ -37,7 +37,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 2
 //!BIND LUMA
 //!SAVE FEATURE2
@@ -75,7 +75,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 3
 //!BIND LUMA
 //!SAVE FEATURE3
@@ -113,7 +113,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 4
 //!BIND LUMA
 //!SAVE FEATURE4
@@ -151,7 +151,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 5
 //!BIND LUMA
 //!SAVE FEATURE5
@@ -189,7 +189,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 6
 //!BIND LUMA
 //!SAVE FEATURE6
@@ -227,7 +227,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 7
 //!BIND LUMA
 //!SAVE FEATURE7
@@ -265,7 +265,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 8
 //!BIND LUMA
 //!SAVE FEATURE8
@@ -303,7 +303,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 9
 //!BIND LUMA
 //!SAVE FEATURE9
@@ -341,7 +341,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 10
 //!BIND LUMA
 //!SAVE FEATURE10
@@ -379,7 +379,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 11
 //!BIND LUMA
 //!SAVE FEATURE11
@@ -417,7 +417,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 12
 //!BIND LUMA
 //!SAVE FEATURE12
@@ -455,7 +455,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 13
 //!BIND LUMA
 //!SAVE FEATURE13
@@ -493,7 +493,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] feature map 14
 //!BIND LUMA
 //!SAVE FEATURE14
@@ -531,7 +531,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] shrinking 1
 //!BIND FEATURE1
 //!BIND FEATURE2
@@ -570,7 +570,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] shrinking 2
 //!BIND FEATURE1
 //!BIND FEATURE2
@@ -609,7 +609,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] shrinking 3
 //!BIND FEATURE1
 //!BIND FEATURE2
@@ -648,7 +648,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] shrinking 4
 //!BIND FEATURE1
 //!BIND FEATURE2
@@ -687,7 +687,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 1_1
 //!BIND SHRINKED1
 //!BIND SHRINKED2
@@ -739,7 +739,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 1_2
 //!BIND SHRINKED1
 //!BIND SHRINKED2
@@ -791,7 +791,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 1_3
 //!BIND SHRINKED1
 //!BIND SHRINKED2
@@ -843,7 +843,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 1_4
 //!BIND SHRINKED1
 //!BIND SHRINKED2
@@ -895,7 +895,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 2_1
 //!BIND MODEL21
 //!BIND MODEL22
@@ -947,7 +947,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 2_2
 //!BIND MODEL21
 //!BIND MODEL22
@@ -999,7 +999,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 2_3
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1051,7 +1051,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 2_4
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1103,7 +1103,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 3_1
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1155,7 +1155,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 3_2
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1207,7 +1207,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 3_3
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1259,7 +1259,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 3_4
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1311,7 +1311,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 4_1
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1363,7 +1363,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 4_2
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1415,7 +1415,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 4_3
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1467,7 +1467,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] mapping 4_4
 //!BIND MODEL21
 //!BIND MODEL22
@@ -1519,7 +1519,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] sub-band residuals 1
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1541,7 +1541,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] sub-band residuals 2
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1563,7 +1563,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] sub-band residuals 3
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1585,7 +1585,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] sub-band residuals 4
 //!BIND MODEL1
 //!BIND MODEL2
@@ -1607,7 +1607,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 1
 //!BIND RES1
 //!BIND RES2
@@ -1627,7 +1627,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 2
 //!BIND RES1
 //!BIND RES2
@@ -1647,7 +1647,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 3
 //!BIND RES1
 //!BIND RES2
@@ -1667,7 +1667,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 4
 //!BIND RES1
 //!BIND RES2
@@ -1687,7 +1687,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 5
 //!BIND RES1
 //!BIND RES2
@@ -1707,7 +1707,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 6
 //!BIND RES1
 //!BIND RES2
@@ -1727,7 +1727,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 7
 //!BIND RES1
 //!BIND RES2
@@ -1747,7 +1747,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 8
 //!BIND RES1
 //!BIND RES2
@@ -1767,7 +1767,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 9
 //!BIND RES1
 //!BIND RES2
@@ -1787,7 +1787,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 10
 //!BIND RES1
 //!BIND RES2
@@ -1807,7 +1807,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 11
 //!BIND RES1
 //!BIND RES2
@@ -1827,7 +1827,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 12
 //!BIND RES1
 //!BIND RES2
@@ -1847,7 +1847,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 13
 //!BIND RES1
 //!BIND RES2
@@ -1867,7 +1867,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] expanding 14
 //!BIND RES1
 //!BIND RES2
@@ -1887,7 +1887,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_56_16_4_1] sub-pixel convolution 1
 //!BIND EXPANDED1
 //!BIND EXPANDED2
@@ -2038,7 +2038,7 @@ return res;
 }
 
 //!HOOK LUMA
-//!WHEN OUTPUT.w LUMA.w / 1.200 > OUTPUT.h LUMA.h / 1.200 > *
+//!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!WIDTH LUMA.w 2 *
 //!HEIGHT LUMA.h 2 *
 //!DESC [FSRCNNX_x2_56_16_4_1] aggregation
