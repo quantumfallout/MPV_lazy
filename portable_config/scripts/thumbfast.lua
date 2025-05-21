@@ -44,73 +44,23 @@ mp.utils = require "mp.utils"
 mp.options = require "mp.options"
 mp.options.read_options(options)
 
-local function get_os()
-    local raw_os_name = ""
-
-    if jit and jit.os and jit.arch then
-        raw_os_name = jit.os
-    else
-        if package.config:sub(1,1) == "\\" then
-            -- Windows
-            local env_OS = os.getenv("OS")
-            if env_OS then
-                raw_os_name = env_OS
-            end
-        else
-            raw_os_name = subprocess({"uname", "-s"}).stdout
-        end
-    end
-
-    raw_os_name = (raw_os_name):lower()
-
-    local os_patterns = {
-        ["windows"] = "windows",
-        ["linux"]   = "linux",
-
-        ["osx"]     = "darwin",
-        ["mac"]     = "darwin",
-        ["darwin"]  = "darwin",
-
-        ["^mingw"]  = "windows",
-        ["^cygwin"] = "windows",
-
-        ["bsd$"]    = "darwin",
-        ["sunos"]   = "darwin"
-    }
-
-    -- 默认为WIN
-    local str_os_name = "windows"
-
-    for pattern, name in pairs(os_patterns) do
-        if raw_os_name:match(pattern) then
-            str_os_name = name
-            break
-        end
-    end
-
-    return str_os_name
-end
-
-local os_name = mp.get_property("platform") or get_os()
+local os_name = mp.get_property("platform")
 
 local properties = {}
 
 function subprocess(args, async, callback)
     callback = callback or function() end
-    local command = {
-        name = "subprocess",
-        args = args,
-        playback_only = async,
-        capture_stdout = not async,
-    }
+    local command1 = { name = "subprocess", args = args, playback_only = true, }
+    local command2 = { name = "subprocess", args = args, playback_only = false, capture_stdout = true, }
 
     if os_name == "darwin" then
-        command.env = "PATH=" .. os.getenv("PATH")
+        command1.env = "PATH=" .. os.getenv("PATH")
+        command2.env = "PATH=" .. os.getenv("PATH")
     end
 
     return async and
-        mp.command_native_async(command, callback) or
-        mp.command_native(command)
+        mp.command_native_async(command1, callback) or
+        mp.command_native(command2)
 end
 
 local winapi = {}
