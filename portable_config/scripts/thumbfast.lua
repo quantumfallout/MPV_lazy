@@ -15,11 +15,13 @@ COMMIT_ 9deb0733c4e36938cf90e42ddfb7a19a8b2f4641
 
 local options = {
 
+    load = true,
+
     socket = "",
     tnpath = "",
 
-    max_height = 360,
-    max_width = 360,
+    max_height = 320,
+    max_width = 320,
 
     overlay_id = 42,
 
@@ -32,17 +34,54 @@ local options = {
     hwdec = "yes",
     sw_threads = 2,
     binpath = "default",
-    min_duration = 0,
+    min_duration = 10,
     precise = 0,
     quality = 0,                 -- require vf_libplacebo for 3
-    frequency = 0.1,
-    auto_run = true,
+    frequency = 0.125,
 
 }
 
 mp.utils = require "mp.utils"
 mp.options = require "mp.options"
 mp.options.read_options(options)
+
+if options.load == false then
+   mp.msg.info("脚本已被初始化禁用")
+   return
+end
+
+local min_major = 0
+local min_minor = 40
+local min_patch = 0
+local mpv_ver_curr = mp.get_property_native("mpv-version", "unknown")
+local function incompat_check(full_str, tar_major, tar_minor, tar_patch)
+    if full_str == "unknown" then
+        return true
+    end
+
+    local clean_ver_str = full_str:gsub("^[^%d]*", "")
+    local major, minor, patch = clean_ver_str:match("^(%d+)%.(%d+)%.(%d+)")
+    major = tonumber(major)
+    minor = tonumber(minor)
+    patch = tonumber(patch or 0)
+    if major < tar_major then
+        return true
+    elseif major == tar_major then
+        if minor < tar_minor then
+            return true
+        elseif minor == tar_minor then
+            if patch < tar_patch then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+if incompat_check(mpv_ver_curr, min_major, min_minor, min_patch) then
+    mp.msg.warn("当前mpv版本 (" .. (mpv_ver_curr or "未知") .. ") 低于 " .. min_major .. "." .. min_minor .. "." .. min_patch .. "，已终止缩略图功能。")
+    return
+end
 
 local os_name = mp.get_property("platform")
 
@@ -238,7 +277,7 @@ end
 
 local info_timer = nil
 
-local auto_run = options.auto_run
+local auto_run = true
 
 local function info(w, h)
     local short_video = mp.get_property_number("duration", 0) <= options.min_duration
@@ -287,39 +326,39 @@ local seek_period_cur = seek_period_raw
 local precise_raw = options.precise
 local precise_cur = precise_raw
 
-if quality == 0 then
-    if precise_raw == 2 then
-        quality = 2
-    elseif precise_raw == 0 then
-        quality = 1
-    elseif precise_raw == 1 then
-        quality = 1
-    end
-    if options.sw_threads >= 3 then
-        quality = 2
-        if options.sw_threads >= 6 then
-            quality = 3
-        end
-    elseif options.sw_threads == 1 then
-        quality = 1
-    end
-end
-
-if quality >= 2 then
-    scale_sw = "bicublin"
-end
-
 local function quality_fin()
     local vf_str_pre = "scale=w="..effective_w..":h="..effective_h
     local vf_str_suffix = "format=fmt=bgra"
+
+    if quality == 0 then
+        if precise_raw == 2 then
+            quality = 2
+        elseif precise_raw == 0 then
+            quality = 1
+        elseif precise_raw == 1 then
+            quality = 1
+        end
+        if options.sw_threads >= 3 then
+            quality = 2
+            if options.sw_threads >= 6 then
+                quality = 3
+            end
+        elseif options.sw_threads == 1 then
+            quality = 1
+        end
+    end
+
     if quality == 1 then
+        scale_sw = "fast-bilinear"
         vf_str = vf_str_pre..":flags=fast_bilinear,"..vf_str_suffix
     elseif quality == 2 then
+        scale_sw = "bicublin"
         vf_str = vf_str_pre..":flags=bicublin,"..vf_str_suffix
         if mp.get_property_number("video-params/sig-peak", 1) > 1 then
             vf_str = vf_str_pre..":flags=bicublin,format=fmt=gbrapf32,zscale=t=linear:npl=203,tonemap=tonemap=hable:desat=0.0,zscale=p=709:t=709:m=709,"..vf_str_suffix
         end
     elseif quality == 3 then
+        scale_sw = "bicublin"
         if mp.get_property_number("video-out-params/max-luma", 1) > 203 then
             vf_str = "lavfi=[libplacebo=w="..effective_w..":h="..effective_h..":colorspace=bt709:color_primaries=bt709:color_trc=bt709:tonemapping=hable:format=bgra]"
 
@@ -382,9 +421,9 @@ local function spawn(time)
         "--edition="..(properties["edition"] or "auto"), "--vid="..(vid or "auto"), "--sub=no", "--audio=no",
         "--start="..time,
         "--gpu-dumb-mode=yes", "--dither-depth=no", "--tone-mapping=clip", "--hdr-compute-peak=no",
+        "--vf="..quality_fin(), "--audio-pitch-correction=no", "--deinterlace=no",
         "--sws-allow-zimg=no", "--sws-fast=yes", "--sws-scaler="..scale_sw,
         "--ytdl-format=worst", "--demuxer-readahead-secs=0", "--demuxer-max-bytes=128KiB",
-        "--vf="..quality_fin(), "--audio-pitch-correction=no", "--deinterlace=no",
         "--ovc=rawvideo", "--of=image2", "--ofopts=update=1", "--ocopy-metadata=no", "--o="..options.tnpath
     }
 
@@ -788,11 +827,11 @@ mp.add_key_binding(nil, "thumb_toggle", function()
         auto_run = false
         file_load()
         shutdown()
-        mp.osd_message("缩略图功能已禁用", 2)
+        mp.osd_message("缩略图功能已临时禁用", 2)
     else
         auto_run = true
         file_load()
-        mp.osd_message("缩略图功能已启用", 2)
+        mp.osd_message("缩略图功能已临时启用", 2)
     end
 end)
 mp.register_script_message("thumb_hwdec", function(hwdec_api)
