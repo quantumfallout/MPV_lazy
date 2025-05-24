@@ -77,8 +77,52 @@
 
 ]]
 
+local mp = require "mp"
+mp.options = require "mp.options"
+mp.utils = require "mp.utils"
 
-local utils = require("mp.utils")
+local user_opt = {
+	load = true,
+}
+mp.options.read_options(user_opt)
+
+if user_opt.load == false then
+	mp.msg.info("脚本已被初始化禁用")
+	return
+end
+-- 原因：stats 新增了第五页
+local min_major = 0
+local min_minor = 39
+local min_patch = 0
+local mpv_ver_curr = mp.get_property_native("mpv-version", "unknown")
+local function incompat_check(full_str, tar_major, tar_minor, tar_patch)
+	if full_str == "unknown" then
+		return true
+	end
+
+	local clean_ver_str = full_str:gsub("^[^%d]*", "")
+	local major, minor, patch = clean_ver_str:match("^(%d+)%.(%d+)%.(%d+)")
+	major = tonumber(major)
+	minor = tonumber(minor)
+	patch = tonumber(patch or 0)
+	if major < tar_major then
+		return true
+	elseif major == tar_major then
+		if minor < tar_minor then
+			return true
+		elseif minor == tar_minor then
+			if patch < tar_patch then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+if incompat_check(mpv_ver_curr, min_major, min_minor, min_patch) then
+	mp.msg.warn("当前mpv版本 (" .. (mpv_ver_curr or "未知") .. ") 低于 " .. min_major .. "." .. min_minor .. "." .. min_patch .. "，已终止缩略图功能。")
+	return
+end
 
 function check_plat()
 	if mp.get_property_native("platform") == "windows" then
@@ -231,7 +275,7 @@ end
 function import_files()
 	local was_ontop = mp.get_property_native("ontop")
 	if was_ontop then mp.set_property_native("ontop", false) end
-	local res = utils.subprocess({
+	local res = mp.utils.subprocess({
 		args = {'powershell', '-NoProfile', '-Command', [[& {
 			Trap {
 				Write-Error -ErrorRecord $_
@@ -262,7 +306,7 @@ end
 function import_url()
 	local was_ontop = mp.get_property_native("ontop")
 	if was_ontop then mp.set_property_native("ontop", false) end
-	local res = utils.subprocess({
+	local res = mp.utils.subprocess({
 		args = {'powershell', '-NoProfile', '-Command', [[& {
 			Trap {
 				Write-Error -ErrorRecord $_
@@ -284,7 +328,7 @@ end
 function import_append_aid()
 	local was_ontop = mp.get_property_native("ontop")
 	if was_ontop then mp.set_property_native("ontop", false) end
-	local res = utils.subprocess({
+	local res = mp.utils.subprocess({
 		args = {'powershell', '-NoProfile', '-Command', [[& {
 			Trap {
 				Write-Error -ErrorRecord $_
@@ -313,7 +357,7 @@ end
 function import_append_sid()
 	local was_ontop = mp.get_property_native("ontop")
 	if was_ontop then mp.set_property_native("ontop", false) end
-	local res = utils.subprocess({
+	local res = mp.utils.subprocess({
 		args = {'powershell', '-NoProfile', '-Command', [[& {
 			Trap {
 				Write-Error -ErrorRecord $_

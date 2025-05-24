@@ -13,6 +13,10 @@ COMMIT_ 9deb0733c4e36938cf90e42ddfb7a19a8b2f4641
 
 ]]
 
+local mp = require "mp"
+mp.options = require "mp.options"
+mp.utils = require "mp.utils"
+
 local options = {
 
     load = true,
@@ -40,16 +44,13 @@ local options = {
     frequency = 0.125,
 
 }
-
-mp.utils = require "mp.utils"
-mp.options = require "mp.options"
 mp.options.read_options(options)
 
 if options.load == false then
-   mp.msg.info("脚本已被初始化禁用")
-   return
+    mp.msg.info("脚本已被初始化禁用")
+    return
 end
-
+-- 原因：--load-osd-console 重命名为 --load-console
 local min_major = 0
 local min_minor = 40
 local min_patch = 0

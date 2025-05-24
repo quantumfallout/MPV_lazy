@@ -12,6 +12,7 @@
 ]]
 
 local settings = {
+	load = true,
 
 	key_move2up = "UP",
 	key_move2down = "DOWN",
@@ -55,6 +56,44 @@ opts.read_options(settings, nil, function(list) update_opts(list) end)
 local utils = require("mp.utils")
 local msg = require("mp.msg")
 local assdraw = require("mp.assdraw")
+
+if settings.load == false then
+	msg.info("脚本已被初始化禁用")
+	return
+end
+-- 原因：忘了
+local min_major = 0
+local min_minor = 34
+local min_patch = 0
+local mpv_ver_curr = mp.get_property_native("mpv-version", "unknown")
+local function incompat_check(full_str, tar_major, tar_minor, tar_patch)
+	if full_str == "unknown" then
+		return true
+	end
+
+	local clean_ver_str = full_str:gsub("^[^%d]*", "")
+	local major, minor, patch = clean_ver_str:match("^(%d+)%.(%d+)%.(%d+)")
+	major = tonumber(major)
+	minor = tonumber(minor)
+	patch = tonumber(patch or 0)
+	if major < tar_major then
+		return true
+	elseif major == tar_major then
+		if minor < tar_minor then
+			return true
+		elseif minor == tar_minor then
+			if patch < tar_patch then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+if incompat_check(mpv_ver_curr, min_major, min_minor, min_patch) then
+	msg.warn("当前mpv版本 (" .. (mpv_ver_curr or "未知") .. ") 低于 " .. min_major .. "." .. min_minor .. "." .. min_patch .. "，已终止缩略图功能。")
+	return
+end
 
 --global variables
 local selection = nil

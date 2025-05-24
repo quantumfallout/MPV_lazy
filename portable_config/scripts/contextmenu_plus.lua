@@ -18,6 +18,8 @@ local msg = require('mp.msg')
 
 -- user options
 local o = {
+    load = true,
+
     use_mpv_impl       = true,    -- use mpv's menu implementation if available
     input_conf         = 'default',
     uosc_syntax        = true,    -- toggle uosc menu syntax support
@@ -27,6 +29,44 @@ local o = {
     max_playlist_items = 20,      -- limit the playlist items in submenu, set to 0 to disable.
 }
 opts.read_options(o)
+
+if o.load == false then
+	mp.msg.info("脚本已被初始化禁用")
+	return
+end
+-- 原因：首个为 win32 添加上下文菜单支持的版本
+local min_major = 0
+local min_minor = 38
+local min_patch = 0
+local mpv_ver_curr = mp.get_property_native("mpv-version", "unknown")
+local function incompat_check(full_str, tar_major, tar_minor, tar_patch)
+    if full_str == "unknown" then
+        return true
+    end
+
+    local clean_ver_str = full_str:gsub("^[^%d]*", "")
+    local major, minor, patch = clean_ver_str:match("^(%d+)%.(%d+)%.(%d+)")
+    major = tonumber(major)
+    minor = tonumber(minor)
+    patch = tonumber(patch or 0)
+    if major < tar_major then
+        return true
+    elseif major == tar_major then
+        if minor < tar_minor then
+            return true
+        elseif minor == tar_minor then
+            if patch < tar_patch then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+if incompat_check(mpv_ver_curr, min_major, min_minor, min_patch) then
+    mp.msg.warn("当前mpv版本 (" .. (mpv_ver_curr or "未知") .. ") 低于 " .. min_major .. "." .. min_minor .. "." .. min_patch .. "，已终止缩略图功能。")
+    return
+end
 
 local use_mpv_impl = o.use_mpv_impl and (mp.get_property_native('menu-data') ~= nil)
 local menu_prop = use_mpv_impl and 'menu-data' or 'user-data/menu/items' -- menu data property
