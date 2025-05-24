@@ -2,15 +2,37 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 
 __all__ = [
-	"FMT_CHANGE", "FMT_CTRL", "FPS_CHANGE", "FPS_CTRL",
-	"ACNET_STD", "ARTCNN_NV", "CUGAN_NV", "EDI_US_STD", "ESRGAN_DML", "ESRGAN_NV", "NGU_HQ", "WAIFU_DML", "WAIFU_NV",
-	"MVT_LQ", "MVT_STD", "MVT_POT", "MVT_MQ", "RIFE_STD", "RIFE_DML", "RIFE_NV", "SVP_LQ", "SVP_STD", "SVP_HQ", "SVP_PRO",
-	"DPIR_DBLK_NV", "BILA_NV", "BM3D_NV", "CCD_STD", "DFTT_STD", "DFTT_NV", "DPIR_NR_NV", "FFT3D_STD", "NLM_STD", "NLM_NV",
-	"COLOR_P3W_FIX", "CSC_RB", "DEBAND_STD", "DEINT_LQ", "DEINT_STD", "DEINT_EX", "EDI_AA_STD", "EDI_AA_NV", "IVTC_STD", "STAB_STD", "STAB_HQ",
-	"UAI_DML", "UAI_MIGX", "UAI_NV_TRT", "UVR_MAD",
+	"FMT_CHANGE", "FMT_CTRL",
+	"FPS_CHANGE", "FPS_CTRL",
+
+	"ACNET_STD", "ARTCNN_NV", "CUGAN_NV", "EDI_US_STD",
+	"ESRGAN_DML", "ESRGAN_NV",
+	"NGU_HQ",
+	"WAIFU_DML", "WAIFU_NV",
+
+	"MVT_LQ", "MVT_STD", "MVT_POT", "MVT_MQ",
+	"RIFE_STD", "RIFE_DML", "RIFE_NV",
+	"SVP_LQ", "SVP_STD", "SVP_HQ", "SVP_PRO",
+
+	"DPIR_DBLK_NV",
+	"BILA_NV", "BM3D_NV",
+	"CCD_STD",
+	"DFTT_STD", "DFTT_NV",
+	"DPIR_NR_NV", "FFT3D_STD",
+	"NLM_STD", "NLM_NV",
+
+	"COLOR_P3W_FIX", "CSC_RB",
+	"DEBAND_STD",
+	"DEINT_LQ", "DEINT_STD", "DEINT_EX",
+	"EDI_AA_STD", "EDI_AA_NV",
+	"IVTC_STD",
+	"STAB_STD", "STAB_HQ",
+
+	"UAI_DML", "UAI_MIGX", "UAI_NV_TRT",
+	"UVR_MAD",
 ]
 
 ##################################################
@@ -2194,7 +2216,7 @@ def BILA_NV(
 
 def BM3D_NV(
 	input : vs.VideoNode,
-	nr_lv : typing.List[int] = [5,1,1],
+	nr_lv : typing.List[int] = [5,0,0],
 	bs_ref : typing.Literal[1, 2, 3, 4, 5, 6, 7, 8] = 8,
 	bs_out : typing.Literal[1, 2, 3, 4, 5, 6, 7, 8] = 7,
 	gpu : typing.Literal[0, 1, 2] = 0,
