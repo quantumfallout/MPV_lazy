@@ -21,33 +21,36 @@
 // SOFTWARE.
 
 //!PARAM TAPS_scale
-//!DESC int
 //!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM TAPS_cscale
-//!DESC int
 //!TYPE DEFINE
+//!DESC int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
 //!PARAM CLIP_scale
-//!TYPE float
+//!TYPE DEFINE
+//!DESC float
 //!MINIMUM 0.0
 //!MAXIMUM 1.0
 0.8
 
 //!PARAM CLIP_cscale
-//!TYPE float
+//!TYPE DEFINE
+//!DESC float
 //!MINIMUM 0.0
 //!MAXIMUM 1.0
 0.8
 
 //!PARAM CLIP_dscale
-//!TYPE float
+//!TYPE DEFINE
+//!DESC float
 //!MINIMUM 0.0
 //!MAXIMUM 1.0
 1.0
