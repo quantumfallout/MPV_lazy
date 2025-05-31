@@ -487,7 +487,7 @@ local function real_res(req_w, req_h, filesize)
     local count = filesize / 4
     local diff = (req_w * req_h) - count
 
-    if (properties["video-params"] and properties["video-params"]["rotate"] or 0) % 180 == 90 then
+    if (properties["video-dec-params"] and properties["video-dec-params"]["rotate"] or 0) % 180 == 90 then
         req_w, req_h = req_h, req_w
     end
 
@@ -765,6 +765,7 @@ end)
 mp.observe_property("track-list", "native", update_tracklist)
 mp.observe_property("display-hidpi-scale", "native", update_property_dirty)
 mp.observe_property("video-params", "native", update_property_dirty)
+mp.observe_property("video-dec-params", "native", update_property_dirty)
 mp.observe_property("demuxer-via-network", "native", update_property)
 mp.observe_property("stream-open-filename", "native", update_property)
 mp.observe_property("path", "native", update_property)
