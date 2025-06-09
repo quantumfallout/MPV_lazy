@@ -2,7 +2,7 @@
 ### 文档： https://github.com/hooke007/MPV_lazy/wiki/3_K7sfunc
 ##################################################
 
-__version__ = "0.8.3"
+__version__ = "0.8.4"
 
 __all__ = [
 	"FMT_CHANGE", "FMT_CTRL",
@@ -2892,7 +2892,7 @@ def DEBAND_STD(
 
 def DEINT_LQ(
 	input : vs.VideoNode,
-	deint_m : typing.Literal[1, 2] = 1,
+	iden : bool = True,
 	tff : bool = True,
 	vs_t : int = vs_thd_dft,
 ) -> vs.VideoNode :
@@ -2900,8 +2900,8 @@ def DEINT_LQ(
 	func_name = "DEINT_STD"
 	if not isinstance(input, vs.VideoNode) :
 		raise vs.Error(f"模块 {func_name} 的子参数 input 的值无效")
-	if deint_m not in [1, 2] :
-		raise vs.Error(f"模块 {func_name} 的子参数 deint_m 的值无效")
+	if not isinstance(iden, bool) :
+		raise vs.Error(f"模块 {func_name} 的子参数 iden 的值无效")
 	if not isinstance(tff, bool) :
 		raise vs.Error(f"模块 {func_name} 的子参数 tff 的值无效")
 	if not isinstance(vs_t, int) or vs_t > vs_thd_init :
@@ -2912,10 +2912,12 @@ def DEINT_LQ(
 
 	core.num_threads = vs_t
 
-	if deint_m == 1 :
-		output = core.resize.Bob(clip=input, filter="bicubic", tff=tff)
-	elif deint_m == 2 :
-		output = core.bwdif.Bwdif(clip=input, field=3 if tff else 2)
+	field = 0
+	if iden :
+		field = field + 2
+	if tff :
+		field = field + 1
+	output = core.bwdif.Bwdif(clip=input, field=field)
 
 	return output
 
