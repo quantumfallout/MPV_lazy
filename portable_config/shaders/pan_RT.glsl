@@ -1,7 +1,12 @@
 
+//!PARAM X
+//!TYPE float
+//!MINIMUM -100.0
+//!MAXIMUM 100.0
+0.0
+
 //!PARAM Y
-//!TYPE DEFINE
-//!DESC float
+//!TYPE float
 //!MINIMUM -100.0
 //!MAXIMUM 100.0
 0.0
@@ -9,24 +14,40 @@
 //!DESC [pan_RT]
 //!HOOK MAINPRESUB
 //!BIND HOOKED
-//!WHEN Y 0.0 = !
-
-float offset_pct = 0.01 * Y;
+//!WHEN X 0.0 = ! Y 0.0 = ! +
 
 vec4 hook()
 {
+
+	float width = HOOKED_size.x;
 	float height = HOOKED_size.y;
-	float offset = height * offset_pct;
-	float abs_offset = abs(offset);
 	vec2 texcoord = HOOKED_pos * HOOKED_size;
 
-#if (Y > 0)
-	if(texcoord.y < abs_offset) return vec4(0.0);
-	return HOOKED_texOff(vec2(0, -abs_offset));
-#elif (Y < 0)
-	if(texcoord.y > (height - abs_offset)) return vec4(0.0);
-	return HOOKED_texOff(vec2(0, abs_offset));
-#endif
+	float offset_x_pct = 0.01 * X;
+	float offset_y_pct = 0.01 * Y;
+	vec2 offset = HOOKED_size * vec2(offset_x_pct, offset_y_pct);
+	vec2 abs_offset = abs(offset);
+
+	if (X > 0.0) {
+		if (texcoord.x < abs_offset.x) return vec4(0.0);
+	} else if (X < 0.0) {
+		if (texcoord.x > width - abs_offset.x) return vec4(0.0);
+	}
+
+	if (Y > 0.0) {
+		if (texcoord.y < abs_offset.y) return vec4(0.0);
+	} else if (Y < 0.0 ) {
+		if (texcoord.y > height - abs_offset.y) return vec4(0.0);
+	}
+
+	vec2 direction = vec2(0.0);
+	if (X > 0.0) direction.x = -1.0;
+	else if (X < 0.0) direction.x = 1.0;
+
+	if (Y > 0.0) direction.y = -1.0;
+	else if (Y < 0.0) direction.y = 1.0;
+
+	return HOOKED_texOff(direction * abs_offset);
 
 }
 

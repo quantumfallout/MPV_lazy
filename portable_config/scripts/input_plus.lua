@@ -80,6 +80,10 @@
  <KEY>   script-binding input_plus/volume_db_dec       # 减少音量（以分贝为单位）
  <KEY>   script-binding input_plus/volume_db_inc       # 增加...
 
+ <KEY>   script-binding input_plus/af_hold             # [按住/松开] 临时清空音频滤镜/恢复
+ <KEY>   script-binding input_plus/vf_hold             # [...] 临时清空视频滤镜/...
+ <KEY>   script-binding input_plus/glsl_hold           # [...] 临时清空着色器/...
+
  <KEY>   script-message-to input_plus cycle-cmds "cmd1" "cmd2"   # 循环触发命令
 
 ]]
@@ -153,6 +157,7 @@ local chap_keywords = {
 }
 
 local cmds_sqnum = {}
+local prop_tmp = ""
 
 local osm = mp.create_osd_overlay("ass-events")
 local osm_showing = false
@@ -942,6 +947,22 @@ function volume_add(diff)
 end
 
 
+function prop_hold(prop)
+	local function prop_auto(flag_complex)
+		local evt = flag_complex.event
+		if evt == "down" then
+			prop_tmp = mp.get_property_native(prop, "")
+			mp.set_property_native(prop, "")
+			mp.msg.verbose("prop_hold 已清零 " .. prop)
+		elseif evt == "up" then
+			mp.set_property_native(prop, prop_tmp)
+			mp.msg.verbose("prop_hold 已恢复")
+		end
+	end
+	return prop_auto
+end
+
+
 
 --
 -- 键位绑定
@@ -1022,6 +1043,10 @@ mp.add_key_binding(nil, "trackV_refresh", function() track_refresh("vid") end)
 
 mp.add_key_binding(nil, "volume_db_dec", function() volume_add(-1) end, {repeatable = true})
 mp.add_key_binding(nil, "volume_db_inc", function() volume_add(1) end, {repeatable = true})
+
+mp.add_key_binding(nil, "af_hold", prop_hold("af"), {complex = true})
+mp.add_key_binding(nil, "vf_hold", prop_hold("vf"), {complex = true})
+mp.add_key_binding(nil, "glsl_hold", prop_hold("glsl-shaders"), {complex = true})
 
 mp.register_script_message("cycle-cmds", cycle_cmds)
 
