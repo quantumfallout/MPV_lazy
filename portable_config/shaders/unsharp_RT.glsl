@@ -7,13 +7,14 @@
 
 //!PARAM SHARP
 //!TYPE float
-//!MINIMUM -2.0
-//!MAXIMUM 2.0
-0.8
+//!MINIMUM -10.0
+//!MAXIMUM 10.0
+1.0
 
 //!DESC [unsharp_RT]
 //!HOOK SCALED
 //!BIND HOOKED
+//!WHEN SHARP 0.0 = !
 
 #define effect_width   WIDTH
 #define coeff_blur     SHARP

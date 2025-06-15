@@ -1,5 +1,3 @@
-// only useful in --vo=gpu-next
-// use --sharp instead in --vo=gpu
 
 //!PARAM SHARP
 //!TYPE float
@@ -10,6 +8,7 @@
 //!DESC [unsharp_masking_RT]
 //!HOOK MAIN
 //!BIND HOOKED
+//!WHEN SHARP 0.0 = !
 
 vec4 hook()
 {

@@ -784,17 +784,21 @@ mp.add_key_binding(nil, "thumb_rerun", function()
     auto_run = true
     file_load()
     mp.osd_message("缩略图功能已重启", 2)
+    mp.msg.info("缩略图功能已重启")
 end)
 mp.add_key_binding(nil, "thumb_toggle", function()
     if auto_run then
         auto_run = false
-        file_load()
+        clear()
         shutdown()
+        file_load()
         mp.osd_message("缩略图功能已临时禁用", 2)
+        mp.msg.info("缩略图功能已临时禁用")
     else
         auto_run = true
         file_load()
         mp.osd_message("缩略图功能已临时启用", 2)
+        mp.msg.info("缩略图功能已临时启用")
     end
 end)
 mp.register_script_message("thumb_hwdec", function(hwdec_api)
@@ -809,6 +813,7 @@ mp.register_script_message("thumb_hwdec", function(hwdec_api)
     end
     options.hwdec = hwdec_api
     mp.osd_message("缩略图已变更首选解码API：" .. hwdec_api, 2)
+    mp.msg.info("缩略图已变更首选解码API：" .. hwdec_api)
     clear()
     shutdown()
     file_load()

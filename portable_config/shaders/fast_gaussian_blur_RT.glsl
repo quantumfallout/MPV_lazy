@@ -1,12 +1,10 @@
 
-// Maximum resolution
 //!PARAM res
 //!TYPE int
 //!MINIMUM 64
 //!MAXIMUM 4096
 1024
 
-// Number of blur passes
 //!PARAM passes
 //!TYPE int
 //!MINIMUM 0
@@ -15,7 +13,7 @@
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 1
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 1
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -23,7 +21,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 2
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 2
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -31,7 +29,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 3
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 3
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -39,7 +37,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 4
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 4
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -47,7 +45,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 5
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 5
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -55,7 +53,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 6
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 6
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -63,7 +61,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 7
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 7
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -71,7 +69,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Iterated downscale pass 8
+//!DESC [fast_gaussian_blur_RT] Iterated downscale pass 8
 //!WHEN MAIN.w res > MAIN.h res > + passes 0 > *
 //!WIDTH MAIN.w 2 /
 //!HEIGHT MAIN.h 2 /
@@ -79,7 +77,7 @@ vec4 hook() { return HOOKED_tex(HOOKED_pos); }
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 1
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 1
 //!WHEN passes 0 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -95,7 +93,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 1
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 1
 //!WHEN passes 0 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -111,7 +109,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 2
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 2
 //!WHEN passes 1 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -127,7 +125,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 2
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 2
 //!WHEN passes 1 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -143,7 +141,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 3
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 3
 //!WHEN passes 2 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -159,7 +157,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 3
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 3
 //!WHEN passes 2 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -175,7 +173,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 4
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 4
 //!WHEN passes 3 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -191,7 +189,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 4
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 4
 //!WHEN passes 3 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -207,7 +205,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 5
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 5
 //!WHEN passes 4 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -223,7 +221,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 5
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 5
 //!WHEN passes 4 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -239,7 +237,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 6
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 6
 //!WHEN passes 5 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -255,7 +253,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 6
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 6
 //!WHEN passes 5 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -271,7 +269,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 7
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 7
 //!WHEN passes 6 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -287,7 +285,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 7
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 7
 //!WHEN passes 6 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
@@ -303,7 +301,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur horizontal pass 8
+//!DESC [fast_gaussian_blur_RT] Blur horizontal pass 8
 //!WHEN passes 7 >
 #define DIR vec2(1.0, 0.0)
 vec4 hook()
@@ -319,7 +317,7 @@ vec4 hook()
 
 //!HOOK MAIN
 //!BIND HOOKED
-//!DESC [fast_gaussian_RT] Blur vertical pass 8
+//!DESC [fast_gaussian_blur_RT] Blur vertical pass 8
 //!WHEN passes 7 >
 #define DIR vec2(0.0, 1.0)
 vec4 hook()
