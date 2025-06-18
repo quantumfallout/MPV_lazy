@@ -84,6 +84,9 @@
  <KEY>   script-binding input_plus/vf_hold             # [...] 临时清空视频滤镜/...
  <KEY>   script-binding input_plus/glsl_hold           # [...] 临时清空着色器/...
 
+ <KEY>   script-message-to input_plus glsl-param set $RTshader $Param $Val                  # 设置指定 $RT着色器 的指定 $参数 $值
+ <KEY>   script-message-to input_plus glsl-param add $RTshader $Param $Val $Def $Min $Max   # 调节指定 $RT着色器 的指定 $参数 $步进值（可选：指定 $默认 $最小 $最大值）
+
  <KEY>   script-message-to input_plus cycle-cmds "cmd1" "cmd2"   # 循环触发命令
 
 ]]
@@ -963,6 +966,51 @@ function prop_hold(prop)
 end
 
 
+function update_shader_param(prefix, shader, param, val, def, min, max)
+
+	if prefix == "set" then
+		if shader == "_all_" then
+			mp.command("change-list glsl-shader-opts append " .. param .. "=" .. val)
+		else
+			mp.command("change-list glsl-shader-opts append " .. shader .. "/" .. param .. "=" .. val)
+		end
+
+	elseif prefix == "add" then
+		local glsl_opts = mp.get_property("glsl-shader-opts", "")
+		local glsl_target = shader .. "/" .. param
+		local glsl_target2 = param
+		local function extract(input, key)
+			local pattern = "[,]*" .. key .. "=([^,]+)"
+			local value = input:match(pattern)
+			return value
+		end
+		val = tonumber(val) or 0
+		def = tonumber(def) or 0
+		local val_cur
+		if shader == "_all_" then
+			val_cur = extract(glsl_opts, glsl_target2) or def
+		else
+			val_cur = extract(glsl_opts, glsl_target) or def
+		end
+		min = tonumber(min) or -10000
+		max = tonumber(max) or 10000
+		val_nxt = val_cur + val
+		if val_nxt > max then
+			val_nxt = max
+		elseif val_nxt < min then
+			val_nxt = min
+		end
+		if shader == "_all_" then
+			mp.command("change-list glsl-shader-opts append " .. param .. "=" .. val_nxt)
+		else
+			mp.command("change-list glsl-shader-opts append " .. shader .. "/" .. param .. "=" .. val_nxt)
+		end
+
+	end
+
+end
+
+
 
 --
 -- 键位绑定
@@ -1047,6 +1095,9 @@ mp.add_key_binding(nil, "volume_db_inc", function() volume_add(1) end, {repeatab
 mp.add_key_binding(nil, "af_hold", prop_hold("af"), {complex = true})
 mp.add_key_binding(nil, "vf_hold", prop_hold("vf"), {complex = true})
 mp.add_key_binding(nil, "glsl_hold", prop_hold("glsl-shaders"), {complex = true})
+
+mp.register_script_message("glsl-param", function(prefix, shader, param, val, def, min, max)
+	update_shader_param(prefix, shader, param, val, def, min, max) end)
 
 mp.register_script_message("cycle-cmds", cycle_cmds)
 
