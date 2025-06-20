@@ -1,43 +1,43 @@
 
-//!PARAM bY
+//!PARAM Y
 //!TYPE int
 //!MINIMUM 0
 //!MAXIMUM 1
-0
+1
 
-//!PARAM bY_mode
+//!PARAM MODE
 //!DESC int
 //!TYPE DEFINE
 //!MINIMUM 1
 //!MAXIMUM 3
+2
+
+//!PARAM U
+//!DESC int
+//!TYPE DEFINE
+//!MINIMUM 0
+//!MAXIMUM 1
 1
 
-//!PARAM bU
+//!PARAM V
 //!DESC int
 //!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
-0
-
-//!PARAM bV
-//!DESC int
-//!TYPE DEFINE
-//!MINIMUM 0
-//!MAXIMUM 1
-0
+1
 
 //!HOOK LUMA
 //!BIND HOOKED
 //!DESC [plane_block_RT] Y -->> black/grey/white
-//!WHEN bY 0 >
+//!WHEN Y 0 ==
 
 vec4 hook() {
 	vec4 color = HOOKED_texOff(0.0);
-#if (bY_mode == 1)
+#if (MODE == 1)
 	color.x = 0.0;
-#elif (bY_mode == 2)
+#elif (MODE == 2)
 	color.x = 0.5;
-#elif (bY_mode == 3)
+#elif (MODE == 3)
 	color.x = 1.0;
 #endif
 	return color;
@@ -46,14 +46,14 @@ vec4 hook() {
 //!HOOK CHROMA
 //!BIND HOOKED
 //!DESC [plane_block_RT] U/V -->> grey
-//!WHEN bU 0 > bV 0 > +
+//!WHEN U 0 == V 0 == +
 
 vec4 hook() {
 	vec4 color = HOOKED_texOff(0.0);
-#if (bU == 1)
+#if (U == 0)
 	color.x = 0.5;
 #endif
-#if (bV == 1)
+#if (V == 0)
 	color.y = 0.5;
 #endif
 	return color;
