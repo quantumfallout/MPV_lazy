@@ -8,7 +8,7 @@
 //!PARAM FIT
 //!TYPE int
 //!MINIMUM 0
-//!MAXIMUM 1
+//!MAXIMUM 2
 1
 
 //!HOOK MAINPRESUB
@@ -28,13 +28,18 @@ vec4 hook() {
 	float cos_a = cos(angle);
 	float sin_a = sin(angle);
 	float scale_factor = 1.0;
-	if (FIT == 1) {
+
+	if (FIT > 0) {
 		float abs_cos = abs(cos_a);
 		float abs_sin = abs(sin_a);
 		float new_width = aspect_ratio * abs_cos + 1.0 * abs_sin;
 		float new_height = aspect_ratio * abs_sin + 1.0 * abs_cos;
-		float zoom_factor = max(new_width / aspect_ratio, new_height / 1.0);
-		scale_factor = 1.0 / zoom_factor;
+		float zoom = max(new_width / aspect_ratio, new_height / 1.0);
+		if (FIT == 1) {
+			scale_factor = 1.0 / zoom;
+		} else if (FIT == 2) {
+			scale_factor = zoom;
+		}
 	}
 
 	pos /= scale_factor;
@@ -48,7 +53,7 @@ vec4 hook() {
 	pos += align;
 
 	if (any(lessThan(pos, vec2(0.0))) || any(greaterThan(pos, vec2(1.0)))) {
-		return vec4(0.0);
+		return vec4(vec3(0.0), 1.0);
 	}
 
 	return HOOKED_tex(pos);
