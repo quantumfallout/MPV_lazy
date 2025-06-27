@@ -22,19 +22,20 @@
 // MOD of NVSharpen.glsl
 
 //!PARAM SHARP
-//!TYPE float
+//!DESC float
+//!TYPE DEFINE
 //!MINIMUM 0.0
 //!MAXIMUM 1.0
 0.25
 
 //!PARAM PQ
-//!TYPE DEFINE
 //!DESC int
+//!TYPE DEFINE
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
-//!HOOK OUTPUT
+//!HOOK SCALED
 //!BIND HOOKED
 //!DESC [NVSharpen_rgb_RT] NVIDIA Image Sharpening v1.0.2
 //!COMPUTE 32 32 256 1

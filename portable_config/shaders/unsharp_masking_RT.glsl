@@ -6,7 +6,7 @@
 1.0
 
 //!DESC [unsharp_masking_RT]
-//!HOOK MAIN
+//!HOOK SCALED
 //!BIND HOOKED
 //!WHEN SHARP 0.0 = !
 
