@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 
 //!DESC [colorprim_601_to_709]
 //!HOOK MAINPRESUB

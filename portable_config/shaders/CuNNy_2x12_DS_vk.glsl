@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // CuNNy 2x12 DS (dp4a)
 // Copyright (c) 2024 funnyplanter
 

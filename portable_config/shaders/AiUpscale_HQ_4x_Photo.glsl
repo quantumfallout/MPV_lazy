@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 //!HOOK LUMA
 //!WHEN OUTPUT.w LUMA.w 3.200 * > OUTPUT.h LUMA.h 3.200 * > *
 //!WIDTH LUMA.w 4 *

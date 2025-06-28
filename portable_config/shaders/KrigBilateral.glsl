@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // KrigBilateral by Shiandow
 //
 // This library is free software; you can redistribute it and/or

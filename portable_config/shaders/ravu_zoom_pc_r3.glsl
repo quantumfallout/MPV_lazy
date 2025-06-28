@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // Copyright (c) 2023 bjin (https://github.com/bjin/mpv-prescalers)
 // Modifications Copyright (c) 2023 Artoriuz
 // Changes: Replaced the AR solution with a simpler 4-tap clipper

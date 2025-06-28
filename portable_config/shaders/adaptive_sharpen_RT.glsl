@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // Copyright (c) 2015-2021, bacondither
 // All rights reserved.
 //

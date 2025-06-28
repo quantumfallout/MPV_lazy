@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // CuNNy 4x12 SOFT (dp4a)
 // Copyright (c) 2024 funnyplanter
 

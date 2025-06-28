@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 //!HOOK LUMA
 //!DESC [FSRCNNX_x1_16_0_4_1_distort] feature map 1
 //!BIND LUMA

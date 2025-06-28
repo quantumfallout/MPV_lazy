@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // https://github.com/haasn/gentoo-conf/blob/xor/home/nand/.mpv/shaders/deband.glsl 的极简版
 
 //!PARAM DBD

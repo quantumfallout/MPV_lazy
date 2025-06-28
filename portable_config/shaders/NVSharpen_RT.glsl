@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // The MIT License(MIT)
 //
 // Copyright(c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.

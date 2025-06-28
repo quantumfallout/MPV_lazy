@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 //!HOOK LUMA
 //!WHEN OUTPUT.w LUMA.w 1.200 * > OUTPUT.h LUMA.h 1.200 * > *
 //!DESC [FSRCNNX_x2_16_0_4_1_anime_distort] feature map 1

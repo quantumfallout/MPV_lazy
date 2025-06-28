@@ -1,3 +1,5 @@
+// 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
+
 // LICENSE
 // =======
 // Copyright (c) 2017-2019 Advanced Micro Devices, Inc. All rights reserved.
