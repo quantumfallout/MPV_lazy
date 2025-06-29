@@ -12,9 +12,9 @@ echo 关闭该CMD窗口也将自动关闭MPV
 :: 输出将执行的参数信息
 echo ==========================================================
 echo == 启动参数
-echo mpv --config=no --vo=gpu-next --idle=once --force-window=yes --keep-open=yes --hidpi-window-scale=no --autofit-smaller=500x500
+echo mpv --config=no --log-file="mpv-pure.log" --vo=gpu-next --idle=once --force-window=yes --keep-open=yes --hidpi-window-scale=no --autofit-smaller=500x500
 echo ==========================================================
-echo == 以下为日志
+echo == 以下为控制台记录
 echo ==========================================================
 
 :: 更改当前工作目录
@@ -24,7 +24,7 @@ cd /D %~dp0\..
 mpv.com --version
 
 :: 执行启动参数
-mpv.com --config=no --vo=gpu-next --idle=once --force-window=yes --keep-open=yes --hidpi-window-scale=no --autofit-smaller=500x500
+mpv.com --config=no --log-file="mpv-pure.log" --vo=gpu-next --idle=once --force-window=yes --keep-open=yes --hidpi-window-scale=no --autofit-smaller=500x500
 
 :: 手动退出后输出的文本
 echo ==========================================================

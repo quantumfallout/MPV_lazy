@@ -16,7 +16,7 @@ echo ==========================================================
 echo == 启动参数
 echo mpv --config=no --vo=gpu-next --input-test=yes --idle=yes --force-window=yes --hidpi-window-scale=no --autofit-smaller=25%x25% --geometry=80%:80%
 echo ==========================================================
-echo == 以下为日志
+echo == 以下为控制台记录
 echo ==========================================================
 
 :: 更改当前工作目录
