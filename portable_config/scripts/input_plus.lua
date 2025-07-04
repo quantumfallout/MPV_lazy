@@ -36,6 +36,7 @@
 
  <KEY>   script-message-to input_plus update-osd 1     # 开始强制刷新OSD的渲染
  <KEY>   script-message-to input_plus update-osd 0     # 暂停强制刷新OSD的渲染
+ <KEY>   script-message-to input_plus update-osd 1 $FREQ   # 可选参数 $FREQ 表示指定刷新间隔，大于0且小于1
 
  <KEY>   script-binding input_plus/pip_dummy           # 画中画（伪）/小窗化
  <KEY>   script-message-to input_plus pip_dummy_pct 40   # ...（支持自定义数值）
@@ -181,7 +182,7 @@ local ostime_style = "{\\rDefault\\fnmpv-osd-symbols\\fs30\\bord2\\an9\\alpha&H8
 local osd_hack = mp.create_osd_overlay("ass-events")
 local osd_hack_freq = 1/60
 osd_hack.data = "{\\rDefault\\an9\\alpha&HFF\\1c&HFFFFFF\\3c&HFFFFFF}" .. "FF"
-local osd_hack_timer = "empty"
+local osd_hack_timer = nil
 
 local scale_target = 0
 
@@ -619,6 +620,47 @@ end
 
 function update_osd()
 	osd_hack:update()
+end
+function osd_hack_set(num, freq)
+	num = tonumber(num) or -1
+	if num ~= 0  and num ~= 1 then
+		return
+	end
+	freq = tonumber(freq) or osd_hack_freq
+	if freq <= 0 or freq > 1 then
+		freq = osd_hack_freq
+	end
+
+	if osd_hack_timer == nil then
+		if num == 0 then
+			return
+		elseif num == 1 then
+			osd_hack_freq = freq
+			osd_hack_timer = mp.add_periodic_timer(osd_hack_freq, update_osd)
+			mp.msg.info("update_osd 已启动")
+		end
+	else
+		if freq == osd_hack_freq then
+			if num == 0 then
+				osd_hack_timer:stop()
+				mp.msg.info("update_osd 已暂停")
+			elseif num == 1 then
+				osd_hack_timer:resume()
+				mp.msg.info("update_osd 已恢复")
+			end
+		else
+			osd_hack_freq = freq
+			osd_hack_timer:kill()
+			osd_hack_timer = nil
+			if num == 0 then
+				mp.msg.info("update_osd 已终止")
+				return
+			elseif num == 1 then
+				osd_hack_timer = mp.add_periodic_timer(osd_hack_freq, update_osd)
+				mp.msg.info("update_osd 已重启")
+			end
+		end
+	end
 end
 
 
@@ -1114,25 +1156,7 @@ mp.register_script_message("glsl-param", function(prefix, shader, param, val, de
 
 mp.register_script_message("cycle-cmds", cycle_cmds)
 
-mp.register_script_message("update-osd", function(num)
-	num = tonumber(num)
-	if osd_hack_timer == "empty" then
-		if num == 0 then
-			return
-		elseif num == 1 then
-			osd_hack_timer = mp.add_periodic_timer(osd_hack_freq, update_osd)
-			mp.msg.info("update_osd 已启动")
-		end
-	else
-		if num == 0 then
-			osd_hack_timer:stop()
-			mp.msg.info("update_osd 已暂停")
-		elseif num == 1 then
-			osd_hack_timer:resume()
-			mp.msg.info("update_osd 已恢复")
-		end
-	end
-end)
+mp.register_script_message("update-osd", function(num, freq) osd_hack_set(num, freq) end)
 
 mp.register_script_message("update-var", function(var, val)
 	local msg_info_pre = "[input_plus] "
@@ -1155,15 +1179,6 @@ mp.register_script_message("update-var", function(var, val)
 		end
 		seek_dur_step = tonumber(val)
 		msg_info = "自定义跳转步长增量 " .. val
-		mp.osd_message(msg_info_pre .. msg_info, 1)
-		mp.msg.info(msg_info)
-
-	elseif var == "osd_hack_freq" then
-		if tonumber(val) <=0 then
-			val = 0.001
-		end
-		osd_hack_freq = tonumber(val)
-		msg_info = "自定义 osd_hack 刷新频率 " .. val
 		mp.osd_message(msg_info_pre .. msg_info, 1)
 		mp.msg.info(msg_info)
 
