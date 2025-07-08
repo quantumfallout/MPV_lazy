@@ -1,16 +1,6 @@
 // 文档 https://github.com/hooke007/MPV_lazy/wiki/4_GLSL
 
 
-//!PARAM DW
-//!TYPE int
-//!MINIMUM 0
-16
-
-//!PARAM DH
-//!TYPE int
-//!MINIMUM 0
-9
-
 //!PARAM ROW
 //!TYPE int
 //!MINIMUM 1
@@ -28,12 +18,12 @@
 //!WIDTH OUTPUT.w
 //!HEIGHT OUTPUT.h
 //!DESC [mirror_sp_RT]
-//!WHEN HOOKED.w HOOKED.h < DW * DH *
+//!WHEN HOOKED.w HOOKED.h <
 
 vec4 hook() {
 
 	vec2 pos = HOOKED_pos;
-	float DAR = float(DW) / float(DH);
+	float DAR = float(target_size.x) / float(target_size.y);
 	float split = DAR * (float(HOOKED_size.y) * float(ROW)) / (float(HOOKED_size.x));
 	float pad = (fract(split) * 0.5) / split;
 
