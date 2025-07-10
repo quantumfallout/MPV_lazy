@@ -26,7 +26,7 @@
 0.0
 
 
-//!DESC [letterbox_RT]
+//!DESC [box_crop_RT]
 //!HOOK OUTPUT
 //!BIND HOOKED
 //!WHEN WT WB + HL + HR +
