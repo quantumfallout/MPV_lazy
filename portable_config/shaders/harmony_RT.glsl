@@ -31,22 +31,23 @@
 //!MAXIMUM 2
 1
 
-//!PARAM SOFT
-//!TYPE float
-//!MINIMUM 0.0
-//!MAXIMUM 10.0
-1.0
-
 //!PARAM ALT
 //!TYPE int
 //!MINIMUM 0
 //!MAXIMUM 1
 0
 
+//!PARAM MODE
+//!TYPE int
+//!MINIMUM 0
+//!MAXIMUM 3
+1
+
 
 //!HOOK OUTPUT
 //!BIND HOOKED
 //!DESC [harmony_RT]
+//!WHEN MODE
 
 vec4 hook() {
 
@@ -54,8 +55,9 @@ vec4 hook() {
 	vec2 center = vec2(X, Y) / 100.0;
 	vec2 size = vec2(A, B) / 100.0;
 	vec2 pos = HOOKED_pos.xy;
-	float feather = SOFT / 10.0;
+	float feather = 2.0 / 10.0;
 	float dist = 0.0;
+	float mosaic_pix = 32.0;
 
 	if (SHAPE == 1) {
 		float d_l = pos.x - (center.x - size.x);
@@ -73,8 +75,20 @@ vec4 hook() {
 	float feather_rad = (SHAPE == 1) ? feather * 0.1 : feather;
 	in_region = smoothstep(-feather_rad, feather_rad, dist);
 
-	float black_factor = (ALT == 0) ? in_region : (1.0 - in_region);
-	return mix(color, vec4(vec3(0.0), color.a), black_factor);
+	float effect_factor = (ALT == 0) ? in_region : (1.0 - in_region);
+
+	if (MODE == 1) {
+		vec2 pixel_coord = pos * HOOKED_size;
+		vec2 mosaic_coord = floor(pixel_coord / mosaic_pix) * mosaic_pix;
+		vec4 mosaic_color = HOOKED_tex(mosaic_coord / HOOKED_size);
+		return mix(color, mosaic_color, effect_factor);
+	} else if (MODE == 2) {
+		vec4 mixed = mix(color, vec4(vec3(0.0), color.a), effect_factor);
+		return mixed;
+	} else if (MODE == 3) {
+		vec4 mixed = mix(color, vec4(vec3(1.0), color.a), effect_factor);
+		return mixed;
+	}
 
 }
 
