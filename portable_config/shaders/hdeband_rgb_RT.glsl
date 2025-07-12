@@ -3,7 +3,7 @@
 /*
 
 LICENSE:
-  --- RAW ver.
+  --- AN3223 ver.
   https://github.com/AN3223/dotfiles/blob/master/.config/mpv/shaders/hdeband.glsl
 
 */
