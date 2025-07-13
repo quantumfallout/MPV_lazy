@@ -31,6 +31,12 @@
 //!MAXIMUM 2
 1
 
+//!PARAM ROT
+//!TYPE float
+//!MINIMUM 0.0
+//!MAXIMUM 360.0
+0.0
+
 //!PARAM ALT
 //!TYPE int
 //!MINIMUM 0
@@ -57,18 +63,34 @@ vec4 hook() {
 	vec2 pos = HOOKED_pos.xy;
 	float feather = 2.0 / 10.0;
 	float dist = 0.0;
-	float mosaic_pix = 32.0;
+	float mosaic_pix = 16.0;
+
+	float aspect = HOOKED_size.y / HOOKED_size.x;
+	vec2 p = pos - center;
+	p.y *= aspect;
+	vec2 s_vec = size;
+	s_vec.y *= aspect;
+
+	float angle = radians(ROT);
+	float s = sin(angle);
+	float c = cos(angle);
+	mat2 rot_mat = mat2(c, -s, s, c);
+	vec2 rotated_pos = rot_mat * p;
 
 	if (SHAPE == 1) {
-		float d_l = pos.x - (center.x - size.x);
-		float d_r = (center.x + size.x) - pos.x;
-		float d_t = pos.y - (center.y - size.y);
-		float d_b = (center.y + size.y) - pos.y;
+		float d_l = s_vec.x + rotated_pos.x;
+		float d_r = s_vec.x - rotated_pos.x;
+		float d_t = s_vec.y + rotated_pos.y;
+		float d_b = s_vec.y - rotated_pos.y;
 		dist = min(min(d_l, d_r), min(d_t, d_b));
 	} else if (SHAPE == 2) {
-		vec2 relative_pos = (pos - center) / size;
-		float r = length(relative_pos);
-		dist = 1.0 - r;
+		if (s_vec.x == 0.0 || s_vec.y == 0.0) {
+			dist = 0.0;
+		} else {
+			vec2 relative_pos = rotated_pos / s_vec;
+			float r = length(relative_pos);
+			dist = 1.0 - r;
+		}
 	}
 
 	float in_region = 1.0;
